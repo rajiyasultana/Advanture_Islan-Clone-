@@ -1,0 +1,20 @@
+Day 1:
+	project setup
+	player movement
+	variant types of enemy
+
+Day 2:
+	1. player movement system
+		D = environment move left so looks like player is moving forward.
+		A = player moves left/ backward (until camera view).
+		Space = jump.*
+		= Through
+	2. environment scrolling
+	3. player health (time drain)
+	4. die logic & game over panel(UI)
+	5. game ui.
+
+next plan:
+full player controller
+level design
+working die logic
