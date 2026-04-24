@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,17 +13,24 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 5f;
-    public float playerWidthOffset = 0.5f; // Offset to prevent player from going through walls
-    private float scrollThresholdX; // The X position where the player stops and the level starts scrolling
+    public float playerWidthOffset = 0.5f; 
+    private float scrollThresholdX; 
 
     [Header("Jump")]
     public float jumpForce = 7f;
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
+    public float fallMultiplier = 2.5f; 
+    public float lowJumpMultiplier = 2f;
 
-    public float fallMultiplier = 2.5f; // Multiplier for faster falling
-    public float lowJumpMultiplier = 2f; // Multiplier for lower jumps when the jump button is released early
+    [Header("Throwing System")]
+    public GameObject projectilePrefab;
+    public Transform throwPoint;
+    public int poolSize = 10;
+
+    private Queue<GameObject> projectilePool;
+
 
     private Rigidbody rb;
     private float moveInput;
@@ -37,10 +45,18 @@ public class PlayerMovement : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
-
         // Record the player's initial X position. 
         // We will keep the player pushing from this point when moving right.
         scrollThresholdX = transform.position.x;
+
+        //Object Pooling Setup
+        projectilePool = new Queue<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject obj = Instantiate(projectilePrefab);
+            obj.SetActive(false);
+            projectilePool.Enqueue(obj);
+        }
     }
 
     void Update()
@@ -147,11 +163,30 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && canThrow)
         {
-            // Implement throw logic here
-            Debug.Log("Throw action performed");
+            if (projectilePrefab == null || throwPoint == null)
+            {
+                Debug.LogError("Projectile prefab or throw point is not assigned!");
+                return;
+            }
+            GameObject objToSpawn = projectilePool.Dequeue();
+
+            projectilePool.Enqueue(objToSpawn);
+
+            Projectile projectileScript = objToSpawn.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                projectileScript.Fire(throwPoint.position, Vector3.right);
+            }
         }
+        
+        else if(context.performed && !canThrow)
+        {
+            Debug.LogError("need to collect egg first!!!");
+        }
+
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -165,6 +200,8 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player can now throw!");
                 Destroy(collision.gameObject); // Destroy the egg after hitting it twice
             }
+            //Destroy(collision.gameObject); // Destroy the egg after hitting it once
+
         }
     }
 }

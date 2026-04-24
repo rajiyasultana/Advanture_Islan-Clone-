@@ -44,10 +44,18 @@ public class HealthUI : MonoBehaviour
 
     void UpdateHealth(int current, int max)
     {
+        int lostLives = max - current;
+
         for (int i = 0; i < bars.Count; i++)
         {
-            // Turn ON/OFF empty state
-            bars[i].EnableInClassList("empty", i >= current);
+            if (i < lostLives)
+            {
+                bars[i].style.display = DisplayStyle.None;
+            }
+            else
+            {
+                bars[i].style.display = DisplayStyle.Flex;
+            }
         }
     }
 

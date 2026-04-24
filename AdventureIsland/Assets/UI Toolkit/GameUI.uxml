@@ -11,13 +11,13 @@
             <ui:Label text="3" class="life-text" style="height: 45px; width: 41px; flex-grow: 0; -unity-font-style: bold; font-size: 30px; -unity-text-align: middle-center;"/>
         </ui:VisualElement>
         <ui:VisualElement name="healthBars" class="health-bars" style="flex-grow: 0; flex-shrink: 1; height: 71px; width: 492px; flex-direction: row-reverse; align-self: center;">
+            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
+            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
+            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
+            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
+            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
+            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
             <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none; border-left-color: rgba(219, 116, 0, 0); border-right-color: rgba(219, 116, 0, 0); border-top-color: rgba(219, 116, 0, 0); border-bottom-color: rgba(219, 116, 0, 0);"/>
-            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
-            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
-            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
-            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
-            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
-            <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
             <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
             <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
             <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
