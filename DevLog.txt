@@ -23,3 +23,9 @@ Day 3:
 		die if life empty
 		die if collide with snail enemy
 
+next:
+add 3 try logic
+add scerd bord power
+add angle power
+add point collecting logic
+add different types off enemy
