@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private int hitCounter = 0;
     private bool canThrow = false;
 
     [Header("Environment and Camera")]
@@ -69,8 +68,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 velocity = rb.linearVelocity;
 
+        // Ensure we calculate the boundary FIRST before applying new horizontal velocity
+        float leftBoundaryX = GetLeftCameraBoundary();
+
         // --- MOVEMENT LOGIC ---
-        if (moveInput > 0)
+        if (moveInput > 0) // Moving Right
         {
             if (transform.position.x < scrollThresholdX)
             {
@@ -90,53 +92,62 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        else if (moveInput < 0)
+        else if (moveInput < 0) // Moving Left
         {
-            velocity.x = moveInput * moveSpeed;
+            // If we are significantly inside the boundary, move normally
+            if (transform.position.x > leftBoundaryX)
+            {
+                velocity.x = moveInput * moveSpeed;
+            }
+            else
+            {
+                // Push the player right back exactly to the boundary and stop them.
+                velocity.x = 0;
+                ClampPlayerToCameraBoundary(leftBoundaryX);
+            }
         }
-        else
+        else // Idle
         {
             velocity.x = 0;
-        }
-
-        // --- BETTER JUMP CURVE LOGIC ---
-        if (velocity.y < 0)
-        {
-            // If falling, apply extra gravity to make the fall snappier
-            velocity.y += Physics.gravity.y * (fallMultiplier - 1f) * Time.fixedDeltaTime;
-        }
-        else if (velocity.y > 0 && !isJumpPressed)
-        {
-            // If moving upwards but jump button is released, apply extra gravity so the jump is shorter
-            velocity.y += Physics.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
-        }
-
-        rb.linearVelocity = velocity;
-
-        // Ensure player doesn't walk off the left side of the camera view
-        ClampPlayerToCameraBoundary();
-    }
-
-    private void ClampPlayerToCameraBoundary()
-    {
-        if (mainCamera == null) return;
-
-        float distanceToCamera = Mathf.Abs(mainCamera.transform.position.z - transform.position.z);
-        float leftBoundaryX = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x;
-
-        // If the player tries to go past the boundary, enforce position
-        if (transform.position.x < leftBoundaryX + playerWidthOffset)
-        {
-            Vector3 clampedPos = transform.position;
-            clampedPos.x = leftBoundaryX + playerWidthOffset;
-            transform.position = clampedPos;
-
-            if (rb.linearVelocity.x < 0)
+            
+            // Only clamp when idle to prevent drifting into the wall
+            if (transform.position.x < leftBoundaryX)
             {
-                rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, rb.linearVelocity.z);
+                ClampPlayerToCameraBoundary(leftBoundaryX);
             }
         }
 
+        // --- BETTER JUMP CURVE LOGIC ---
+        if (velocity.y < 0) // Falling
+        {
+            velocity.y += Physics.gravity.y * (fallMultiplier - 1f) * Time.fixedDeltaTime;
+        }
+        else if (velocity.y > 0 && !isJumpPressed) // Short hop (button released early)
+        {
+            velocity.y += Physics.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
+        }
+
+        // Tell the physics engine what to do this frame
+        rb.linearVelocity = velocity;
+    }
+
+    private float GetLeftCameraBoundary()
+    {
+        if (mainCamera == null) return -999f;
+        float distanceToCamera = Mathf.Abs(mainCamera.transform.position.z - transform.position.z);
+        return mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + playerWidthOffset;
+    }
+
+    private void ClampPlayerToCameraBoundary(float leftBoundaryX)
+    {
+        if (mainCamera == null) return;
+        
+        Vector3 clampedPos = transform.position;
+        clampedPos.x = leftBoundaryX;
+        
+        // This instantly snaps the Transform to the correct location 
+        // without waiting for the Rigidbody to resolve it next frame.
+        transform.position = clampedPos;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -189,19 +200,11 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Egg"))
-        {
-            hitCounter++;
-            if (hitCounter >= 2)
-            {
-                canThrow = true;
-                Debug.Log("Player can now throw!");
-                Destroy(collision.gameObject); // Destroy the egg after hitting it twice
-            }
-            //Destroy(collision.gameObject); // Destroy the egg after hitting it once
 
-        }
+    public void EnableThrowing()
+    {
+        canThrow = true;
+        Debug.Log("Player collected the Axe and can now throw!");
     }
+
 }

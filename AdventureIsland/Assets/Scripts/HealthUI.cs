@@ -9,6 +9,7 @@ public class HealthUI : MonoBehaviour
     public PlayerHealthSystem player;
 
     private List<VisualElement> bars = new List<VisualElement>();
+    private VisualElement gameOverPanel;
 
     void Start()
     {
@@ -19,7 +20,18 @@ public class HealthUI : MonoBehaviour
         }
 
         var root = uiDocument.rootVisualElement;
+        
+        // 1. Get references
         var container = root.Q<VisualElement>("healthBars");
+        
+        // ADD THIS: Replace "gameOverPanelName" with the exact name you gave your Game Over root box in UI Builder!
+        gameOverPanel = root.Q<VisualElement>("GameOverPanel"); 
+        
+        if (gameOverPanel != null)
+        {
+            // Hide the game over screen at the start of the game
+            gameOverPanel.style.display = DisplayStyle.None;
+        }
 
         if (container == null)
         {
@@ -27,7 +39,6 @@ public class HealthUI : MonoBehaviour
             return;
         }
 
-        // Find all visual elements inside the container that have the "health-bar" CSS class
         bars = container.Query<VisualElement>(className: "health-bar").ToList();
 
         if (bars.Count != player.MaxLives)
@@ -35,8 +46,9 @@ public class HealthUI : MonoBehaviour
             Debug.LogWarning($"Found {bars.Count} health bars in UI Builder, but player max lives is {player.MaxLives}. Make sure they match!");
         }
 
-        // Subscribe to the health changed event
+        // Subscribe to events
         player.OnHealthChanged += UpdateHealth;
+        player.OnPlayerDeath += ShowGameOverScreen;
 
         // Set the initial visual state
         UpdateHealth(player.CurrentLives, player.MaxLives);
@@ -50,21 +62,34 @@ public class HealthUI : MonoBehaviour
         {
             if (i < lostLives)
             {
-                bars[i].style.display = DisplayStyle.None;
+                bars[i].style.display = DisplayStyle.None; 
             }
             else
             {
-                bars[i].style.display = DisplayStyle.Flex;
+                bars[i].style.display = DisplayStyle.Flex; 
             }
+        }
+    }
+
+    private void ShowGameOverScreen()
+    {
+        if (gameOverPanel != null)
+        {
+            // Un-hide the game over panel
+            gameOverPanel.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            Debug.Log("Player died, but I couldn't find a game over panel in UI Builder to show!");
         }
     }
 
     private void OnDestroy()
     {
-        // Always unsubscribe from events when the object is destroyed to prevent memory leaks
         if (player != null)
         {
             player.OnHealthChanged -= UpdateHealth;
+            player.OnPlayerDeath -= ShowGameOverScreen; // Always unsubscribe
         }
     }
 }

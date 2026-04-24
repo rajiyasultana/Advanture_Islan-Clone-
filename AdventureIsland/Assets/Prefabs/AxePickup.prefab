@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3860773210255115810}
   - component: {fileID: 122586391684691708}
   - component: {fileID: 2697410812186798452}
-  - component: {fileID: -4670564439846730835}
+  - component: {fileID: 2922043881986885256}
   m_Layer: 0
-  m_Name: Axe
+  m_Name: AxePickup
   m_TagString: Axe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
---- !u!114 &-4670564439846730835
+--- !u!114 &2922043881986885256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,8 +150,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6568056629880216520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 201ec5edfd14d6f469dcd927e152f794, type: 3}
+  m_Script: {fileID: 11500000, guid: 44e54b8ffd597884f8475dc957a978d6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  speed: 10
-  lifeTime: 3
+  m_EditorClassIdentifier: Assembly-CSharp::AxePickup

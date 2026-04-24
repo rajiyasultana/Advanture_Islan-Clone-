@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2554004171124125728}
   - component: {fileID: 370217044220756941}
   - component: {fileID: 2046661050917534205}
+  - component: {fileID: 8516831700807771985}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Egg
@@ -140,3 +141,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &8516831700807771985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163344038051067473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f740f67c17b79446b723c67f4b33ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EggBehavior
+  axePrefab: {fileID: 6568056629880216520, guid: 131371494e5c6c14fa14e81d27a7668c, type: 3}
+  throwForceX: 4
+  throwForceY: 6
+  timeUntilHatch: 0.8
