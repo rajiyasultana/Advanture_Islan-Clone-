@@ -39,13 +39,17 @@ public class PlayerHealthSystem : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        while (timer >= timeBetweenHealthDrain)
+        // Use an "if" instead of "while" so we only drain 1 block per frame
+        if (timer >= timeBetweenHealthDrain)
         {
             LoseLife();
-            timer -= timeBetweenHealthDrain;
-
-            // gradually speed up
-            timeBetweenHealthDrain = Mathf.Max(minDrainTime, timeBetweenHealthDrain - 0.1f);
+            
+            // Only reset timer if player is still alive, otherwise stop ticking
+            if (!isDead)
+            {
+                timer = 0f; // Reset to 0 instead of subtracting for cleaner pacing
+                timeBetweenHealthDrain = Mathf.Max(minDrainTime, timeBetweenHealthDrain - 0.1f);
+            }
         }
     }
 
@@ -94,6 +98,7 @@ public class PlayerHealthSystem : MonoBehaviour
         if (CurrentLives <= 0 || isDead) return;   
 
         CurrentLives = 0;
+        
         // Notify UI Toolkit so all health bars disappear at once
         OnHealthChanged?.Invoke(CurrentLives, MaxLives);
 

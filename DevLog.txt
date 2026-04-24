@@ -14,7 +14,12 @@ Day 2:
 	4. die logic & game over panel(UI)
 	5. game ui.
 
-next plan:
-full player controller
-level design
-working die logic
+Day 3:
+	1.full player controller
+		move
+		jump
+		throw
+	2. working die logic
+		die if life empty
+		die if collide with snail enemy
+
