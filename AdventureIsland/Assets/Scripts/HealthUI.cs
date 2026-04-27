@@ -6,102 +6,82 @@ using System.Linq;
 public class HealthUI : MonoBehaviour
 {
     [Header("UI Setup")]
-    public UIDocument uiDocument; // Drag your single GameUI document here
+    public UIDocument uiDocument;
 
     [Header("Player References")]
     public PlayerHealthSystem playerHealth;
     public ScoreSystem playerScore;
 
     private List<VisualElement> bars = new List<VisualElement>();
+
     
     // UI Elements
     private VisualElement gameOverPanel;
     private VisualElement gameUI;
     private Label scoreLabel;
+    private Label chancesLabel; // <--- Target the '3 lives' label
 
     void Start()
     {
-        if (uiDocument == null || playerHealth == null)
-        {
-            Debug.LogError("HealthUI is missing UIDocument or PlayerHealthSystem reference!");
-            return;
-        }
+        if (uiDocument == null || playerHealth == null) return;
 
         var root = uiDocument.rootVisualElement;
 
-        // 1. Get the Main Wrapper Elements based on your UXML
         gameUI = root.Q<VisualElement>("GameUI");
         gameOverPanel = root.Q<VisualElement>("GameOverPanel");
         
-        // Hide game over screen at start
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.style.display = DisplayStyle.None; 
-        }
+        if (gameOverPanel != null) gameOverPanel.style.display = DisplayStyle.None; 
 
-        // 2. Setup Health Bars
         var container = root.Q<VisualElement>("healthBars");
-        if (container != null)
-        {
-            bars = container.Query<VisualElement>(className: "health-bar").ToList();
-        }
-        else
-        {
-            Debug.LogError("Could not find 'healthBars' inside the UI Document!");
-        }
-
-        // 3. Setup Score Label
-        // Because your UXML has nested score-text classes, we specifically target the actual Label element by type
+        if (container != null) bars = container.Query<VisualElement>(className: "health-bar").ToList();
+        
         scoreLabel = root.Q<Label>(className: "score-text");
+        
+        // Grab the chance label
+        chancesLabel = root.Q<Label>(className: "life-text");
 
-        // Subscribe to Player Health Events
+        // System Events
         playerHealth.OnHealthChanged += UpdateHealth;
         playerHealth.OnPlayerDeath += ShowGameOverScreen;
         UpdateHealth(playerHealth.CurrentLives, playerHealth.MaxLives);
 
-        // Subscribe to Player Score Events
         if (playerScore != null)
         {
             playerScore.OnScoreChanged += UpdateScore;
-            UpdateScore(playerScore.Score); // Initialize at 0
+            UpdateScore(playerScore.Score); 
+        }
+
+        // Subscribe to GameManager to update the "3 lives" text
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnChancesChanged += UpdateChances;
+            UpdateChances(GameManager.Instance.currentChances);
         }
     }
 
     void UpdateHealth(int current, int max)
     {
         int lostLives = max - current;
-
         for (int i = 0; i < bars.Count; i++)
         {
-            if (i < lostLives)
-                bars[i].style.display = DisplayStyle.None; 
-            else
-                bars[i].style.display = DisplayStyle.Flex; 
+            bars[i].style.display = (i < lostLives) ? DisplayStyle.None : DisplayStyle.Flex;
         }
     }
 
     void UpdateScore(int currentScore)
     {
-        if (scoreLabel != null)
-        {
-            // Turns "100" into "000100"
-            scoreLabel.text = currentScore.ToString("D6"); 
-        }
+        if (scoreLabel != null) scoreLabel.text = currentScore.ToString("D6"); 
+    }
+
+    void UpdateChances(int remainingChances)
+    {
+        if (chancesLabel != null) chancesLabel.text = remainingChances.ToString();
     }
 
     private void ShowGameOverScreen()
     {
-        if (gameOverPanel != null)
-        {
-            // Show the Game Over panel
-            gameOverPanel.style.display = DisplayStyle.Flex;
-            
-            // Optional: You can hide the GameUI (HUD) here if you want it to disappear when you die!
-            if (gameUI != null)
-            {
-                gameUI.style.display = DisplayStyle.None;
-            }
-        }
+        if (gameOverPanel != null) gameOverPanel.style.display = DisplayStyle.Flex;
+        if (gameUI != null) gameUI.style.display = DisplayStyle.None;
     }
 
     private void OnDestroy()
@@ -111,10 +91,7 @@ public class HealthUI : MonoBehaviour
             playerHealth.OnHealthChanged -= UpdateHealth;
             playerHealth.OnPlayerDeath -= ShowGameOverScreen;
         }
-
-        if (playerScore != null)
-        {
-            playerScore.OnScoreChanged -= UpdateScore;
-        }
+        if (playerScore != null) playerScore.OnScoreChanged -= UpdateScore;
+        if (GameManager.Instance != null) GameManager.Instance.OnChancesChanged -= UpdateChances;
     }
 }
