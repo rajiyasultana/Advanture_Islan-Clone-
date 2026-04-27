@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 178923982746650963}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundChecj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,9 @@ GameObject:
   - component: {fileID: 7561237350904052856}
   - component: {fileID: 3204585776064013945}
   - component: {fileID: 9055489758978347716}
-  m_Layer: 0
+  - component: {fileID: 8608731977440832816}
+  - component: {fileID: 9188106184003232997}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -67,6 +69,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 178923982746650963}
+  - {fileID: 1109739989013739942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5118101042665349414
@@ -174,7 +177,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &3204585776064013945
 MonoBehaviour:
@@ -188,13 +191,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ec8ce3c89a7ad42bceb7f966a37b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  levelEnvironment: {fileID: 0}
   moveSpeed: 5
+  playerWidthOffset: 1
   jumpForce: 7
   groundCheck: {fileID: 178923982746650963}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  projectilePrefab: {fileID: 6568056629880216520, guid: 5546fdff6728fe944be16a49e8cf4c25, type: 3}
+  throwPoint: {fileID: 1109739989013739942}
+  poolSize: 10
 --- !u!114 &9055489758978347716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,3 +323,60 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8608731977440832816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579697773901223697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28897126dde31704188ea529dc059a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthSystem
+  timeBetweenHealthDrain: 3
+  delayBeforeGameOver: 1.5
+--- !u!114 &9188106184003232997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579697773901223697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82be76ae81fad9488764dd176b06be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreSystem
+--- !u!1 &9058992148948529782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1109739989013739942}
+  m_Layer: 6
+  m_Name: ThrowPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1109739989013739942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9058992148948529782}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.405, y: 0.21200004, z: 0.817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3199561212208699795}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
