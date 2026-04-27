@@ -5,53 +5,66 @@ using System.Linq;
 
 public class HealthUI : MonoBehaviour
 {
-    public UIDocument uiDocument;
-    public PlayerHealthSystem player;
+    [Header("UI Setup")]
+    public UIDocument uiDocument; // Drag your single GameUI document here
+
+    [Header("Player References")]
+    public PlayerHealthSystem playerHealth;
+    public ScoreSystem playerScore;
 
     private List<VisualElement> bars = new List<VisualElement>();
+    
+    // UI Elements
     private VisualElement gameOverPanel;
+    private VisualElement gameUI;
+    private Label scoreLabel;
 
     void Start()
     {
-        if (uiDocument == null || player == null)
+        if (uiDocument == null || playerHealth == null)
         {
             Debug.LogError("HealthUI is missing UIDocument or PlayerHealthSystem reference!");
             return;
         }
 
         var root = uiDocument.rootVisualElement;
+
+        // 1. Get the Main Wrapper Elements based on your UXML
+        gameUI = root.Q<VisualElement>("GameUI");
+        gameOverPanel = root.Q<VisualElement>("GameOverPanel");
         
-        // 1. Get references
-        var container = root.Q<VisualElement>("healthBars");
-        
-        // ADD THIS: Replace "gameOverPanelName" with the exact name you gave your Game Over root box in UI Builder!
-        gameOverPanel = root.Q<VisualElement>("GameOverPanel"); 
-        
+        // Hide game over screen at start
         if (gameOverPanel != null)
         {
-            // Hide the game over screen at the start of the game
-            gameOverPanel.style.display = DisplayStyle.None;
+            gameOverPanel.style.display = DisplayStyle.None; 
         }
 
-        if (container == null)
+        // 2. Setup Health Bars
+        var container = root.Q<VisualElement>("healthBars");
+        if (container != null)
         {
-            Debug.LogError("Could not find 'healthBars' container in the UI Document!");
-            return;
+            bars = container.Query<VisualElement>(className: "health-bar").ToList();
         }
-
-        bars = container.Query<VisualElement>(className: "health-bar").ToList();
-
-        if (bars.Count != player.MaxLives)
+        else
         {
-            Debug.LogWarning($"Found {bars.Count} health bars in UI Builder, but player max lives is {player.MaxLives}. Make sure they match!");
+            Debug.LogError("Could not find 'healthBars' inside the UI Document!");
         }
 
-        // Subscribe to events
-        player.OnHealthChanged += UpdateHealth;
-        player.OnPlayerDeath += ShowGameOverScreen;
+        // 3. Setup Score Label
+        // Because your UXML has nested score-text classes, we specifically target the actual Label element by type
+        scoreLabel = root.Q<Label>(className: "score-text");
 
-        // Set the initial visual state
-        UpdateHealth(player.CurrentLives, player.MaxLives);
+        // Subscribe to Player Health Events
+        playerHealth.OnHealthChanged += UpdateHealth;
+        playerHealth.OnPlayerDeath += ShowGameOverScreen;
+        UpdateHealth(playerHealth.CurrentLives, playerHealth.MaxLives);
+
+        // Subscribe to Player Score Events
+        if (playerScore != null)
+        {
+            playerScore.OnScoreChanged += UpdateScore;
+            UpdateScore(playerScore.Score); // Initialize at 0
+        }
     }
 
     void UpdateHealth(int current, int max)
@@ -61,13 +74,18 @@ public class HealthUI : MonoBehaviour
         for (int i = 0; i < bars.Count; i++)
         {
             if (i < lostLives)
-            {
                 bars[i].style.display = DisplayStyle.None; 
-            }
             else
-            {
                 bars[i].style.display = DisplayStyle.Flex; 
-            }
+        }
+    }
+
+    void UpdateScore(int currentScore)
+    {
+        if (scoreLabel != null)
+        {
+            // Turns "100" into "000100"
+            scoreLabel.text = currentScore.ToString("D6"); 
         }
     }
 
@@ -75,21 +93,28 @@ public class HealthUI : MonoBehaviour
     {
         if (gameOverPanel != null)
         {
-            // Un-hide the game over panel
+            // Show the Game Over panel
             gameOverPanel.style.display = DisplayStyle.Flex;
-        }
-        else
-        {
-            Debug.Log("Player died, but I couldn't find a game over panel in UI Builder to show!");
+            
+            // Optional: You can hide the GameUI (HUD) here if you want it to disappear when you die!
+            if (gameUI != null)
+            {
+                gameUI.style.display = DisplayStyle.None;
+            }
         }
     }
 
     private void OnDestroy()
     {
-        if (player != null)
+        if (playerHealth != null)
         {
-            player.OnHealthChanged -= UpdateHealth;
-            player.OnPlayerDeath -= ShowGameOverScreen; // Always unsubscribe
+            playerHealth.OnHealthChanged -= UpdateHealth;
+            playerHealth.OnPlayerDeath -= ShowGameOverScreen;
+        }
+
+        if (playerScore != null)
+        {
+            playerScore.OnScoreChanged -= UpdateScore;
         }
     }
 }

@@ -23,7 +23,16 @@ Day 3:
 		die if life empty
 		die if collide with snail enemy
 
+Day 4: 
+	1. Complete the prototype
+		Player movement (done)
+		enemy (Snail, )
+		egg (Axe, )
+		Score (Snail-100; )
+	
+		
 next:
+Skateboard Effect (Important)
 add 3 try logic
 add scerd bord power
 add angle power

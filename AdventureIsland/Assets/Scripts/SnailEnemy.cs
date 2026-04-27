@@ -7,6 +7,7 @@ public class SnailEnemy : MonoBehaviour
 
     [Header("Snail Settings")]
     public float moveSpeed = 1.5f;
+    public int scoreValue = 100;
 
     private Rigidbody rb;
 
@@ -36,6 +37,20 @@ public class SnailEnemy : MonoBehaviour
                 // Instantly kill the player
                 playerHealth.InstantDeath();
             }
+        }
+
+        //Check collision with axe
+        else if(collision.gameObject.CompareTag("Axe"))
+        {
+            ScoreSystem playerScore = FindObjectOfType<ScoreSystem>();
+            if (playerScore != null)
+            {
+                playerScore.AddScore(scoreValue);
+            }
+            //Audio
+            //Effect
+            // Destroy the snail
+            Destroy(gameObject);
         }
     }
 }

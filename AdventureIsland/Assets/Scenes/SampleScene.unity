@@ -946,6 +946,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3199561212208699795, guid: ed5919d78bfb60043a2489b74d3c8877, type: 3}
   m_PrefabInstance: {fileID: 5485091023102598108}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &817506887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817506866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82be76ae81fad9488764dd176b06be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreSystem
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,6 +1454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnailEnemy
   moveSpeed: 0.5
+  scoreValue: 100
 --- !u!4 &1782971741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6496501819140294620, guid: d1a4503ac282dca48a91cc9bf83216ce, type: 3}
@@ -1509,7 +1522,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthUI
   uiDocument: {fileID: 1837667828}
-  player: {fileID: 817506873}
+  playerHealth: {fileID: 817506873}
+  playerScore: {fileID: 817506887}
 --- !u!114 &1837667828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1968,6 +1982,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5579697773901223697, guid: ed5919d78bfb60043a2489b74d3c8877, type: 3}
       insertIndex: -1
       addedObject: {fileID: 817506873}
+    - targetCorrespondingSourceObject: {fileID: 5579697773901223697, guid: ed5919d78bfb60043a2489b74d3c8877, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 817506887}
   m_SourcePrefab: {fileID: 100100000, guid: ed5919d78bfb60043a2489b74d3c8877, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
