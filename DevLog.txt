@@ -25,15 +25,22 @@ Day 3:
 
 Day 4: 
 	1. Complete the prototype
+
 		Player movement (done)
 		enemy (Snail, )
 		egg (Axe, )
 		Score (Snail-100; )
 
-	2. Added 3 try logic
-	
+Day 5:
+	player move(not environment)
+	Player movement (done)
+	enemy (Snail, )
+	egg (Axe, )
+	Score (Snail-100; )
+
 		
 next:
+Added 3 try logic
 Skateboard Effect (Important)
 
 add angle power
