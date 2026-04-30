@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-public class EggBehavior : MonoBehaviour
+public class EggBehavior : CollectibleBase
 {
     [Header("Egg Settings")]
     public GameObject axePrefab;       
@@ -18,40 +18,42 @@ public class EggBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    // We override Collect to stop standard immediate destruction
+    protected override void Collect(GameObject player)
     {
-        if (collision.gameObject.CompareTag("Player") && !isHit)
+        if (isHit) return;
+        isHit = true;
+        
+        // Base add score
+        if (scoreValue > 0)
         {
-            isHit = true;
-            rb.linearVelocity = new Vector3(throwForceX, throwForceY, rb.linearVelocity.z);
-            StartCoroutine(BreakEgg());
+            ScoreSystem playerScore = FindObjectOfType<ScoreSystem>();
+            if (playerScore != null)
+            {
+                playerScore.AddScore(scoreValue);
+            }
         }
+
+        // Pop up the egg before it hatches
+        rb.linearVelocity = new Vector3(throwForceX, throwForceY, rb.linearVelocity.z);
+        
+        // Start the hatching process
+        StartCoroutine(BreakEgg(player));
     }
 
-    private IEnumerator BreakEgg()
+    // We don't use OnCollected directly since we use a Coroutine for the delay
+    protected override void OnCollected(GameObject player) { }
+
+    private IEnumerator BreakEgg(GameObject player)
     {
         yield return new WaitForSeconds(timeUntilHatch);
 
+        // Spawn the axe
         if (axePrefab != null)
         {
-            // By default, spawn at the egg's position
-            GameObject spawnedAxe = Instantiate(axePrefab, transform.position, Quaternion.identity);
-
-            if (transform.parent != null)
-            {
-                spawnedAxe.transform.SetParent(transform.parent);
-            }
-            else 
-            {
-                // Fallback attempt to find your specific environment parent by name
-                GameObject env = GameObject.Find("Environment");
-                if(env != null)
-                {
-                    spawnedAxe.transform.SetParent(env.transform);
-                }
-            }
+            Instantiate(axePrefab, transform.position, Quaternion.identity);
         }
 
-        Destroy(gameObject);
+        DestroyCollectible();
     }
 }

@@ -1,22 +1,19 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class HealthPickup : MonoBehaviour
+public class HealthPickup : CollectibleBase
 {
-    [Header("PicupSettings")]
+    [Header("Health Picup Settings")]
     public int points = 100;
 
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnCollected(GameObject player)
     {
-        if(other.CompareTag("Player"))
+        // Unique logic: Heal the player
+        PlayerHealthSystem playerHealth = player.GetComponent<PlayerHealthSystem>();
+        if (playerHealth != null)
         {
-            PlayerHealthSystem playerHealth = other.GetComponent<PlayerHealthSystem>();
-            if (playerHealth != null)
-            {
-                playerHealth.GainHealth(points);
-                Destroy(gameObject);
-            }
+            playerHealth.GainHealth(points);
         }
     }
 }
