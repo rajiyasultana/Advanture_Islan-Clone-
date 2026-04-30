@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7942217584886629424}
   - component: {fileID: 8268426895682402025}
   - component: {fileID: 980870856627729311}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SnakeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnakeEnemy
   scoreValue: 200
-  projectilePrefab: {fileID: 3869468836076494741, guid: 913f121dab5265b40a25339f945940fd, type: 3}
+  projectilePrefab: {fileID: 2408361299519283253, guid: 870ff6d6d9595264e89e31e431d2d385, type: 3}
   firePoint: {fileID: 1837027663547108536}
   fireRate: 2
   shootDirection: {x: -1, y: 0, z: 0}
@@ -99,10 +99,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.569262
+  m_Radius: 0.50196564
   m_Height: 1.249342
   m_Direction: 1
-  m_Center: {x: 0.055408955, y: 0, z: 0.12467098}
+  m_Center: {x: 0.028489232, y: 0, z: 0.03045486}
 --- !u!1 &7009268896995331539
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1837027663547108536}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ProjectilePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ Transform:
   m_GameObject: {fileID: 7009268896995331539}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.80599976}
+  m_LocalPosition: {x: -0.21, y: 0, z: -0.06}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 8601135915526710840}
   - component: {fileID: 1201812355555511491}
   - component: {fileID: 6211417431632162022}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SnakeBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}

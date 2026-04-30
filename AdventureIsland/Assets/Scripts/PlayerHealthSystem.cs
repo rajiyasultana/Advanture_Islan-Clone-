@@ -63,6 +63,27 @@ public class PlayerHealthSystem : MonoBehaviour
         }
     }
 
+    public void GainHealth(int pointIsFull)
+    {
+        if (isDead) return;
+        if(CurrentLives < MaxLives)
+        {
+            CurrentLives++;
+            timer = 0f;
+            OnHealthChanged?.Invoke(CurrentLives, MaxLives);
+            Debug.Log($"Gained health! Current Lives: {CurrentLives}/{MaxLives}");
+        }
+        else
+        {
+            ScoreSystem playerScore = GetComponent<ScoreSystem>();
+            if(playerScore != null)
+            {
+                playerScore.AddScore(pointIsFull);
+                Debug.Log($"Health is full! Added {pointIsFull} points to score. Current Score: {playerScore.Score}");
+            }
+        }
+    }
+
     public void InstantDeath()
     {
         if (CurrentLives <= 0 || isDead) return;   
