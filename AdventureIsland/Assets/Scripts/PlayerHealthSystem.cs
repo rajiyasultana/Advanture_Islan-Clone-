@@ -63,6 +63,19 @@ public class PlayerHealthSystem : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int damageAmount)
+    {
+        if (CurrentLives <= 0 || isDead) return;
+
+        CurrentLives = Mathf.Max(0, CurrentLives - damageAmount); // Ensure it doesn't go below 0
+        OnHealthChanged?.Invoke(CurrentLives, MaxLives);
+
+        if (CurrentLives <= 0)
+        {
+            Die();
+        }
+    }
+
     public void GainHealth(int pointIsFull)
     {
         if (isDead) return;

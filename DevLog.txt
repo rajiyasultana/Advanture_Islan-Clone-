@@ -37,12 +37,14 @@ Day 5:
 	enemy (Snail, )
 	egg (Axe, )
 	Score (Snail-100; )
+	Added 3 try logic
+	add health point collecting logic
 
+add different types off enemy
 		
 next:
-Added 3 try logic
+
 Skateboard Effect (Important)
 
 add angle power
-add health point collecting logic
-add different types off enemy
+
