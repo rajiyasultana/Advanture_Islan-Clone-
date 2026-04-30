@@ -125,9 +125,13 @@ public class PlayerHealthSystem : MonoBehaviour
         // Check the GameManager
         if (GameManager.Instance != null)
         {
-            // If they have chances left, the GameManager will reload the scene
-            // If they don't, it will fall through and we show Game Over
-            GameManager.Instance.HandlePlayerDeath();
+            int finalScore = 0;
+            ScoreSystem playerScore = GetComponent<ScoreSystem>();
+            if(playerScore != null)
+            {
+                finalScore = playerScore.Score;
+            }
+            GameManager.Instance.HandlePlayerDeath(finalScore);
             
             if (GameManager.Instance.currentChances <= 0)
             {

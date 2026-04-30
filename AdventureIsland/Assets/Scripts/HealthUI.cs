@@ -18,6 +18,9 @@ public class HealthUI : MonoBehaviour
     // UI Elements
     private VisualElement gameOverPanel;
     private VisualElement gameUI;
+    private VisualElement transitionPanel;
+    private Label transitionScore;
+    private Label transitionLive;
     private Label scoreLabel;
     private Label chancesLabel; // <--- Target the '3 lives' label
 
@@ -29,16 +32,18 @@ public class HealthUI : MonoBehaviour
 
         gameUI = root.Q<VisualElement>("GameUI");
         gameOverPanel = root.Q<VisualElement>("GameOverPanel");
-        
+        transitionPanel = root.Q<VisualElement>("TransitionPanel");
+
         if (gameOverPanel != null) gameOverPanel.style.display = DisplayStyle.None; 
+        if(transitionPanel != null) transitionPanel.style.display = DisplayStyle.None;
 
         var container = root.Q<VisualElement>("healthBars");
         if (container != null) bars = container.Query<VisualElement>(className: "health-bar").ToList();
         
         scoreLabel = root.Q<Label>(className: "score-text");
-        
-        // Grab the chance label
         chancesLabel = root.Q<Label>(className: "life-text");
+        transitionScore = root.Q<Label>("TransitionScore");
+        transitionLive = root.Q<Label>("TransitionLives");
 
         // System Events
         playerHealth.OnHealthChanged += UpdateHealth;
@@ -55,6 +60,7 @@ public class HealthUI : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnChancesChanged += UpdateChances;
+            GameManager.Instance.OnShowTransitionPanel += ShowTransitionScreen;
             UpdateChances(GameManager.Instance.currentChances);
         }
     }
@@ -84,6 +90,18 @@ public class HealthUI : MonoBehaviour
         if (gameUI != null) gameUI.style.display = DisplayStyle.None;
     }
 
+    private void ShowTransitionScreen(int score, int chancesLeft)
+    {
+        if (transitionPanel != null)
+        {
+            transitionPanel.style.display = DisplayStyle.Flex;
+
+            if (transitionScore != null) transitionScore.text = score.ToString("D6");
+            if (transitionLive != null) transitionLive.text = chancesLeft.ToString();
+            if (gameUI != null) gameUI.style.display = DisplayStyle.None;
+        }
+    }
+
     private void OnDestroy()
     {
         if (playerHealth != null)
@@ -92,6 +110,10 @@ public class HealthUI : MonoBehaviour
             playerHealth.OnPlayerDeath -= ShowGameOverScreen;
         }
         if (playerScore != null) playerScore.OnScoreChanged -= UpdateScore;
-        if (GameManager.Instance != null) GameManager.Instance.OnChancesChanged -= UpdateChances;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnChancesChanged -= UpdateChances;
+            GameManager.Instance.OnShowTransitionPanel -= ShowTransitionScreen;
+        }
     }
 }

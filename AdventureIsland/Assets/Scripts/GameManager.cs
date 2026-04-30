@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,10 +9,12 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     public int maxChances = 3;
 
+
     public int currentChances;
     public static bool isInitialized = false;
 
     public System.Action<int> OnChancesChanged;
+    public System.Action<int, int> OnShowTransitionPanel;
 
     private void Awake()
     {
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
         OnChancesChanged?.Invoke(currentChances);
     }
 
-    public void HandlePlayerDeath()
+    public void HandlePlayerDeath(int finalScore)
     {
         currentChances--;
         OnChancesChanged?.Invoke(currentChances);
@@ -46,16 +49,23 @@ public class GameManager : MonoBehaviour
         if(currentChances > 0)
         {
             Debug.Log($"Player Died! Chances left: {currentChances}. Respawning...");
-            
-            // Critical setup if your time was slowed to 0 when the player died
-            Time.timeScale = 1f; 
-            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            OnShowTransitionPanel?.Invoke(finalScore, currentChances);
+
+            StartCoroutine(ReloaSceneAfterDelay(3f));
         }
         else
         {
             Debug.Log("GAME OVER! No chances remaining.");
         }
+    }
+
+    private IEnumerator ReloaSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ResetGame()
