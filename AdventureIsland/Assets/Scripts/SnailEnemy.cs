@@ -1,20 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Rigidbody))]
-public class SnailEnemy : MonoBehaviour
+public class SnailEnemy : EnemyBase
 {
-
     [Header("Snail Settings")]
     public float moveSpeed = 1.5f;
-    public int scoreValue = 100;
 
     private Rigidbody rb;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
         // Ensure the snail doesn't tip over when moving
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
@@ -25,32 +20,5 @@ public class SnailEnemy : MonoBehaviour
         rb.linearVelocity = new Vector3(-moveSpeed, rb.linearVelocity.y, rb.linearVelocity.z);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Check if the snail collided with the Player
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerHealthSystem playerHealth = collision.gameObject.GetComponent<PlayerHealthSystem>();
-
-            if (playerHealth != null)
-            {
-                // Instantly kill the player
-                playerHealth.InstantDeath();
-            }
-        }
-
-        //Check collision with axe
-        else if(collision.gameObject.CompareTag("Axe"))
-        {
-            ScoreSystem playerScore = FindObjectOfType<ScoreSystem>();
-            if (playerScore != null)
-            {
-                playerScore.AddScore(scoreValue);
-            }
-            //Audio
-            //Effect
-            // Destroy the snail
-            Destroy(gameObject);
-        }
-    }
+    // OnCollisionEnter is handled by EnemyBase
 }
