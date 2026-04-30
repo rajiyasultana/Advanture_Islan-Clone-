@@ -33,8 +33,6 @@ public class RockObstacle : MonoBehaviour
                     // Small Rock: Just take away a set number of energy bars
                     healthSystem.TakeDamage(damageAmount);
                     
-                    // Optional: Destroy small rocks after tripping over them so they don't block the path permanently
-                    Destroy(gameObject);
                 }
             }
         }

@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 5f;
+    [Tooltip("How far from the left edge of the camera the player should stop.")]
+    public float leftBoundaryOffset = 1.0f;
 
     [Header("Jump")]
     public float jumpForce = 7f;
@@ -48,16 +50,37 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
-
     }
-
 
     void FixedUpdate()
     {
         Vector3 velocity = rb.linearVelocity;
 
         // --- MOVEMENT LOGIC ---
-        velocity.x = moveInput * moveSpeed;
+        float targetVelocityX = moveInput * moveSpeed;
+
+        // Left Boundary Check: Prevent the player from walking past the left edge of the camera
+        if (Camera.main != null)
+        {
+            // Find the left edge of the screen in world space and apply our customizable offset padding
+            float distanceToCamera = Mathf.Abs(Camera.main.transform.position.z - transform.position.z);
+            float leftBoundaryX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + leftBoundaryOffset;
+
+            // If the player is at the padded line and trying to push Left, force their speed to 0.
+            if (transform.position.x <= leftBoundaryX && targetVelocityX < 0)
+            {
+                targetVelocityX = 0f;
+                // Keep the character exactly on the padded line
+                rb.position = new Vector3(leftBoundaryX, rb.position.y, rb.position.z);
+            }
+            // If they are idle but getting left behind by the camera moving right, pull them forward onto the padded line
+            else if (transform.position.x < leftBoundaryX && targetVelocityX == 0)
+            {
+                rb.position = new Vector3(leftBoundaryX, rb.position.y, rb.position.z);
+            }
+        }
+
+        velocity.x = targetVelocityX;
 
         // --- BETTER JUMP CURVE LOGIC ---
         if (velocity.y < 0) // Falling
@@ -125,15 +148,11 @@ public class PlayerMovement : MonoBehaviour
                 projectileScript.Fire(throwPoint.position, Vector3.right);
             }
         }
-        
         else if(context.performed && !canThrow)
         {
             Debug.LogError("need to collect egg first!!!");
         }
-
-
     }
-
 
     public void EnableThrowing()
     {
