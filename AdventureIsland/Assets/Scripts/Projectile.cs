@@ -5,8 +5,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [Header("Projectile Settings")]
-    public float speed = 10f;
-    public float lifeTime = 3f; //DIable after 3 seconds
+    public float speed = 20f;
+    public float lifeTime = 3f; //Disable after 3 seconds
 
     private Rigidbody rb;
     private float timer;
@@ -14,7 +14,6 @@ public class Projectile : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
     }
 
     public void Fire(Vector3 startPosition, Vector3 direction)
@@ -23,12 +22,14 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(true);
         timer = 0f;
 
+        // Set velocity to only the projectile speed, ignoring player velocity
         rb.linearVelocity = direction.normalized * speed;
     }
+
     void Update()
     {
         timer += Time.deltaTime;
-        if(timer >= lifeTime)
+        if (timer >= lifeTime)
         {
             ReturnToPool();
         }
