@@ -8,7 +8,7 @@ public class PlayerHealthSystem : MonoBehaviour
     public int CurrentLives { get; private set; }
 
     [Tooltip("Time in seconds before the player loses 1 life automatically.")]
-    public float timeBetweenHealthDrain = 3f;
+    public float timeBetweenHealthDrain = 5f;
 
     [Header("Death Settings")]
     [Tooltip("How long to wait (in absolute seconds) before showing game over or respawning.")]
@@ -18,7 +18,6 @@ public class PlayerHealthSystem : MonoBehaviour
     public System.Action OnPlayerDeath; // Triggers the GameOver UI
 
     private float timer = 0f;
-    private float minDrainTime = 1f;
     private bool isDead = false;
 
     // Buff properties
@@ -48,8 +47,7 @@ public class PlayerHealthSystem : MonoBehaviour
             
             if (!isDead)
             {
-                timer = 0f; 
-                timeBetweenHealthDrain = Mathf.Max(minDrainTime, timeBetweenHealthDrain - 0.1f);
+                timer = 0f;
             }
         }
     }
@@ -69,7 +67,7 @@ public class PlayerHealthSystem : MonoBehaviour
         Debug.Log("Angel invincibility ended.");
     }
 
-        public void LoseLife()
+    public void LoseLife()
     {
         if (CurrentLives <= 0 || isDead) return;
 
