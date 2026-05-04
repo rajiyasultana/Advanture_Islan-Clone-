@@ -21,6 +21,11 @@ public class PlayerHealthSystem : MonoBehaviour
     private float minDrainTime = 1f;
     private bool isDead = false;
 
+    // Buff properties
+    public bool HasAngelBuff { get; private set; } = false;
+    private Coroutine angelCoroutine;
+    private PlayerMovement playerMovement;
+
     void Awake()
     {
         CurrentLives = MaxLives;
@@ -49,7 +54,22 @@ public class PlayerHealthSystem : MonoBehaviour
         }
     }
 
-    public void LoseLife()
+    public void EnableAngelBuff(float duration)
+    {
+        if (angelCoroutine != null) StopCoroutine(angelCoroutine);
+        angelCoroutine = StartCoroutine(AngelRoutine(duration));
+    }
+
+    private IEnumerator AngelRoutine(float duration)
+    {
+        HasAngelBuff = true;
+        Debug.Log("Angel invincibility active!");
+        yield return new WaitForSeconds(duration);
+        HasAngelBuff = false;
+        Debug.Log("Angel invincibility ended.");
+    }
+
+        public void LoseLife()
     {
         if (CurrentLives <= 0 || isDead) return;
 

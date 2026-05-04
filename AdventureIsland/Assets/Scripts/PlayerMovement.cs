@@ -27,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform throwPoint;
     public int poolSize = 10;
 
+    [Header("Skateboard Settings")]
+    public float skateboardSpeedMultiplier = 1.6f;
+    public bool HasSkateboard { get; private set; } = false;
+
     private Queue<GameObject> projectilePool;
     private Rigidbody rb;
     private float moveInput;
@@ -56,8 +60,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 velocity = rb.linearVelocity;
 
-        // --- MOVEMENT LOGIC ---
-        float targetVelocityX = moveInput * moveSpeed;
+        // --- SKATEBOARD SPEED OVERRIDE ---
+        float currentSpeed = HasSkateboard ? (moveSpeed * skateboardSpeedMultiplier) : moveSpeed;
+        float targetVelocityX = moveInput * currentSpeed;
 
         // Left Boundary Check: Prevent the player from walking past the left edge of the camera
         if (Camera.main != null)
@@ -158,5 +163,17 @@ public class PlayerMovement : MonoBehaviour
     {
         canThrow = true;
         Debug.Log("Player collected the Axe and can now throw!");
+    }
+
+    public void EnableSkateboard()
+    {
+        HasSkateboard = true;
+        Debug.Log("Skateboard collected! Speed increased.");
+    }
+
+    public void LoseSkateboard()
+    {
+        HasSkateboard = false;
+        Debug.Log("Lost Skateboard!");
     }
 }
