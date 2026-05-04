@@ -44,11 +44,15 @@ Day 5:
 		Base enemy
 		Base Collection item
 
+Day 6: 
+	Skateboard Effect, increase speed. (Important)
+	add angle power
+	minimum level design
 		
 next:
-
-Skateboard Effect, increase speed. (Important)
-add angle power
+improvents list:
+	item spawning and life span
+	health seems decreasing first. needs to slow 
 level design
 animation
 polishing

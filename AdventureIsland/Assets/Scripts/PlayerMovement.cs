@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("References")]
     public Transform cameraTergate; 
+    [Tooltip("How far ahead the camera looks. Higher values push the player further left on screen.")]
+    public float cameraOffsetX = 3.5f; 
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -105,15 +107,17 @@ public class PlayerMovement : MonoBehaviour
         // Update Camera Target (Only push it to the right, never backwards)
         if (cameraTergate != null)
         {
-            if (transform.position.x > cameraTergate.position.x)
+            // Calculate where the camera target SHOULD be (ahead of the player)
+            float desiredX = transform.position.x + cameraOffsetX;
+
+            if (desiredX > cameraTergate.position.x)
             {
-                // Lock Y and Z to the player, but only advance X forward
-                cameraTergate.position = new Vector3(transform.position.x, cameraTergate.position.y, transform.position.z);
+                // Lock Y and Z to the player, but advance X forward with the offset
+                cameraTergate.position = new Vector3(desiredX, cameraTergate.position.y, transform.position.z);
             }
             else
             {
-                // Player is moving left, but we keep the target Y and Z aligned with the player 
-                // so jumping doesn't break the camera, but X stays locked!
+                // X stays locked!
                 cameraTergate.position = new Vector3(cameraTergate.position.x, cameraTergate.position.y, transform.position.z);
             }
         }

@@ -422,8 +422,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6499758, y: 1.440572, z: 1}
-  m_Center: {x: -2.7063766, y: 0.31555784, z: 0}
+  m_Size: {x: 1.6499758, y: 1.420943, z: 1}
+  m_Center: {x: -2.7063766, y: 0.32537234, z: 0}
 --- !u!114 &3595865764596034058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,8 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba33335e198a7748bbb22bcc22138db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnailEnemy
-  moveSpeed: 0.5
   scoreValue: 100
+  moveSpeed: 0.5
 --- !u!1 &8287981401791656811
 GameObject:
   m_ObjectHideFlags: 0
