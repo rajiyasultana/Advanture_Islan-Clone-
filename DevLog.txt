@@ -53,6 +53,8 @@ Day 6:
 		(done) health seems decreasing first. needs to slow (remove drain acceleration and delay 5s)
 		(Done) player move forward then fire distance become small. make it constenet.(if use gravity then this is optimal for now.
 			increase projectile speed)
+		(Done) increase player movement
+		(Done) snake now fireing while in view
 
 		
 next:
