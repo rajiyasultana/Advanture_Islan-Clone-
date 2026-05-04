@@ -59,7 +59,13 @@ Day 6:
 		
 next:
 level design
-animation
+	background
+	charecter model
+		animation
+	items model
+	
+
+bg, collection sound, death sound, fire sound.
 polishing
 testing
 
