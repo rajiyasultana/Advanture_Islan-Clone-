@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [Header("Projectile Settings")]
-    public float speed = 20f;
+    public float force = 15f; // Force applied to the projectile
     public float lifeTime = 3f; //Disable after 3 seconds
 
     private Rigidbody rb;
@@ -22,8 +22,12 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(true);
         timer = 0f;
 
-        // Set velocity to only the projectile speed, ignoring player velocity
-        rb.linearVelocity = direction.normalized * speed;
+        // Reset velocity before applying force
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        // Apply force in the direction
+        rb.AddForce(direction.normalized * force, ForceMode.Impulse);
     }
 
     void Update()
@@ -43,6 +47,7 @@ public class Projectile : MonoBehaviour
     private void ReturnToPool()
     {
         rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
         gameObject.SetActive(false);
     }
 }

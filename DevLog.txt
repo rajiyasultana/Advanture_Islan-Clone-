@@ -49,9 +49,10 @@ Day 6:
 	add angle power
 	minimum level design
 	improvements list:
-		item spawning and life span
+		(done) item spawning and life span (now inactive after entering the viewpoint.)
 		(done) health seems decreasing first. needs to slow (remove drain acceleration and delay 5s)
-		player move forward then fire distance become small. make it constenet. 
+		(Done) player move forward then fire distance become small. make it constenet.(if use gravity then this is optimal for now.
+			increase projectile speed)
 
 		
 next:

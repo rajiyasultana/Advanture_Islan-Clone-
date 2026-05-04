@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float cameraOffsetX = 3.5f; 
 
     [Header("Movement")]
-    public float moveSpeed = 5f;
+    public float moveSpeed = 6f;
     [Tooltip("How far from the left edge of the camera the player should stop.")]
     public float leftBoundaryOffset = 1.0f;
 
