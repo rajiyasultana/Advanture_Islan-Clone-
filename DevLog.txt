@@ -51,18 +51,28 @@ Day 6:
 	improvements list:
 		(done) item spawning and life span (now inactive after entering the viewpoint.)
 		(done) health seems decreasing first. needs to slow (remove drain acceleration and delay 5s)
-		(Done) player move forward then fire distance become small. make it constenet.(if use gravity then this is optimal for now.
+		(Done) player move forward then fire distance become small. make it constant.(if use gravity then this is optimal for now.
 			increase projectile speed)
 		(Done) increase player movement
-		(Done) snake now fireing while in view
+		(Done) snake now firing while in view
 
-		
+
+Day 7:
+	parallax background
+	player model
+	snail enemy model
+	fruit model
+	health model
+	
+
+	
 next:
 level design
-	background
-	charecter model
-		animation
+	
+	character model
+		animation(learn character animation, how to apply)
 	items model
+		transfer all models,
 	
 
 bg, collection sound, death sound, fire sound.
