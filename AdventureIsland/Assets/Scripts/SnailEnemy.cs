@@ -10,15 +10,12 @@ public class SnailEnemy : EnemyBase
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        // Ensure the snail doesn't tip over when moving
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void FixedUpdate()
     {
-        // Slowly move left across the world
         rb.linearVelocity = new Vector3(-moveSpeed, rb.linearVelocity.y, rb.linearVelocity.z);
     }
 
-    // OnCollisionEnter is handled by EnemyBase
 }

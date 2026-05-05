@@ -9,7 +9,6 @@ public class HealthPickup : CollectibleBase
 
     protected override void OnCollected(GameObject player)
     {
-        // Unique logic: Heal the player
         PlayerHealthSystem playerHealth = player.GetComponent<PlayerHealthSystem>();
         if (playerHealth != null)
         {

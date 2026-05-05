@@ -7,11 +7,9 @@ public class PlayerHealthSystem : MonoBehaviour
     public int MaxLives { get; private set; } = 11;
     public int CurrentLives { get; private set; }
 
-    [Tooltip("Time in seconds before the player loses 1 life automatically.")]
     public float timeBetweenHealthDrain = 5f;
 
     [Header("Death Settings")]
-    [Tooltip("How long to wait (in absolute seconds) before showing game over or respawning.")]
     public float delayBeforeGameOver = 1.5f;
 
     public System.Action<int, int> OnHealthChanged;
@@ -85,7 +83,7 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         if (CurrentLives <= 0 || isDead) return;
 
-        CurrentLives = Mathf.Max(0, CurrentLives - damageAmount); // Ensure it doesn't go below 0
+        CurrentLives = Mathf.Max(0, CurrentLives - damageAmount); 
         OnHealthChanged?.Invoke(CurrentLives, MaxLives);
 
         if (CurrentLives <= 0)
