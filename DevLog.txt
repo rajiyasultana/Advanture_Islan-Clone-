@@ -75,10 +75,8 @@ Day 8:
 next:
 level design
 	
-
+throwing animation
 	try shader in parallax effect
-	
-
 bg, collection sound, death sound, fire sound.
 polishing
 code refactor
