@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public bool HasSkateboard { get; private set; } = false;
 
     private Queue<GameObject> projectilePool;
-    private Rigidbody rb;
+    public Rigidbody rb;
     private float moveInput;
     private bool isGrounded;
     private bool isJumpPressed;

@@ -68,12 +68,14 @@ Day 8:
 	character model
 		animation(learn character animation, how to apply)
 			idle. run, jump, die
+	axe model
+	snake model
+	
 	
 next:
 level design
 	
-	items model
-		transfer all models,
+
 	try shader in parallax effect
 	
 

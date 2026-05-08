@@ -20,6 +20,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
     // Buff properties
     public bool HasAngelBuff { get; private set; } = false;
+    private float dieAnimationDuration = 1f;
     private Coroutine angelCoroutine;
     private PlayerMovement playerMovement;
 
@@ -129,15 +130,17 @@ public class PlayerHealthSystem : MonoBehaviour
         isDead = true;
 
         playerMovement.animator.SetTrigger("IsDie");
+        playerMovement.enabled = false;
+        playerMovement.rb.isKinematic = true; 
 
         StartCoroutine(DeathRoutine());
     }
 
     private IEnumerator DeathRoutine()
     {
-        // Wait for the absolute delay using realtime
+        
         yield return new WaitForSecondsRealtime(delayBeforeGameOver);
-
+        
         // Check the GameManager
         if (GameManager.Instance != null)
         {
@@ -153,7 +156,7 @@ public class PlayerHealthSystem : MonoBehaviour
             {
                 OnPlayerDeath?.Invoke(); // Show Game Over Panel
 
-                Time.timeScale = 0f;
+                
             }
         }
         else

@@ -131,13 +131,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SnakeEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 443223612896647175, guid: e31f1fbbc5373b446a4e6321e2f710ba, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4705410925170126954, guid: e31f1fbbc5373b446a4e6321e2f710ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 104.9
+      value: 104.893
       objectReference: {fileID: 0}
     - target: {fileID: 4705410925170126954, guid: e31f1fbbc5373b446a4e6321e2f710ba, type: 3}
       propertyPath: m_LocalPosition.y
