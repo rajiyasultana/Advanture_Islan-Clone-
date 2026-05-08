@@ -26,6 +26,7 @@ public class PlayerHealthSystem : MonoBehaviour
     void Awake()
     {
         CurrentLives = MaxLives;
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -127,8 +128,7 @@ public class PlayerHealthSystem : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        // Stop the game from running
-        Time.timeScale = 0f;
+        playerMovement.animator.SetTrigger("IsDie");
 
         StartCoroutine(DeathRoutine());
     }
@@ -152,6 +152,8 @@ public class PlayerHealthSystem : MonoBehaviour
             if (GameManager.Instance.currentChances <= 0)
             {
                 OnPlayerDeath?.Invoke(); // Show Game Over Panel
+
+                Time.timeScale = 0f;
             }
         }
         else

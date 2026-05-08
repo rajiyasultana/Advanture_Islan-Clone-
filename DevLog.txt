@@ -64,18 +64,21 @@ Day 7:
 	fruit model
 	health model
 	
-
+Day 8:
+	character model
+		animation(learn character animation, how to apply)
+			idle. run, jump, die
 	
 next:
 level design
 	
-	character model
-		animation(learn character animation, how to apply)
 	items model
 		transfer all models,
+	try shader in parallax effect
 	
 
 bg, collection sound, death sound, fire sound.
 polishing
+code refactor
 testing
 

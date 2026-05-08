@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerMovement : MonoBehaviour
 {
     private bool canThrow = false;
+    public Animator animator;
     
     [Header("References")]
     public Transform cameraTergate; 
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
 
         //Object Pooling Setup
         projectilePool = new Queue<GameObject>();
@@ -54,6 +56,13 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+
+        animator.SetFloat("Speed", Mathf.Abs(moveInput));
+        
+        if (moveInput != 0)
+        {
+            transform.localScale = new Vector3(moveInput > 0 ? 1 : -1, 1, 1);
+        }
     }
 
     void FixedUpdate()
@@ -121,13 +130,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
+            //animator.SetBool("IsGrounded", true);
             isJumpPressed = true;
-            if(isGrounded)
+            animator.SetBool("IsJumping", true);
+            if (isGrounded)
+            {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+                
+            }
+                
+
         }
         else if(context.canceled)
         {
              isJumpPressed = false;
+            animator.SetBool("IsJumping", false);
         }
     }
 
