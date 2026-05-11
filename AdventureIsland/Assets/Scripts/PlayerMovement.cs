@@ -153,7 +153,8 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed && canThrow)
         {
             if (projectilePrefab == null || throwPoint == null) return;
-            
+
+            animator.SetTrigger("IsThrowing");
             GameObject objToSpawn = projectilePool.Dequeue();
             projectilePool.Enqueue(objToSpawn);
 
