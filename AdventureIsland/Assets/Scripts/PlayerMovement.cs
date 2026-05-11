@@ -57,12 +57,27 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
 
+        float currentLayerWeight = animator.GetLayerWeight(1);
+        float targetLayerWeight;
+
         animator.SetFloat("Speed", Mathf.Abs(moveInput));
         
         if (moveInput != 0)
         {
             transform.localScale = new Vector3(moveInput > 0 ? 1 : -1, 1, 1);
         }
+
+        if (canThrow)
+        {
+            targetLayerWeight = 1f;
+        }
+        else
+        {
+            targetLayerWeight = 0f;
+        }
+
+        float newLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, Time.deltaTime * 5f);
+        animator.SetLayerWeight(1, newLayerWeight);
     }
 
     void FixedUpdate()
