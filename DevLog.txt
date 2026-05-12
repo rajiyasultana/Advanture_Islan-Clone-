@@ -74,11 +74,17 @@ Day 9:
 	throwing animation
 	try shader in parallax effect(Tried and failed)
 	bird enemy
-	
+Day 10:
+
+polishing	
+level design
+
 next:
+
+problem 1: when scetboard colldect animation stoped
 polish the bird enemy effect.
 
-level design
+
 bg, collection sound, death sound, fire sound.
 polishing
 code refactor

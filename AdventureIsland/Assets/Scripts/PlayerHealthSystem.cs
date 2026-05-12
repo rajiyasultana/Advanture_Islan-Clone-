@@ -69,7 +69,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public void LoseLife()
     {
-        if (CurrentLives <= 0 || isDead) return;
+        if (CurrentLives <= 0 || isDead || HasAngelBuff) return;
 
         CurrentLives--;
 
@@ -83,7 +83,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        if (CurrentLives <= 0 || isDead) return;
+        if (CurrentLives <= 0 || isDead || HasAngelBuff) return;
 
         CurrentLives = Mathf.Max(0, CurrentLives - damageAmount); 
         OnHealthChanged?.Invoke(CurrentLives, MaxLives);
@@ -117,7 +117,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public void InstantDeath()
     {
-        if (CurrentLives <= 0 || isDead) return;   
+        if (CurrentLives <= 0 || isDead || HasAngelBuff) return;   
 
         CurrentLives = 0;
         OnHealthChanged?.Invoke(CurrentLives, MaxLives);

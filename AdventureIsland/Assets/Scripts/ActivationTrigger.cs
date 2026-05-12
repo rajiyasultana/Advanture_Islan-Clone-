@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ActivationTrigger : MonoBehaviour
 {
-    [Header("Stone Activation Settings")]
-    [Tooltip("Drag the inactive stone GameObjects here.")]
     public GameObject[] stonesToActivate;
 
     [Tooltip("Time in seconds between each stone appearing.")]
