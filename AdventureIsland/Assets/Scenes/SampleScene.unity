@@ -5562,6 +5562,7 @@ GameObject:
   - component: {fileID: 1837667829}
   - component: {fileID: 1837667828}
   - component: {fileID: 1837667827}
+  - component: {fileID: 1837667830}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -5622,6 +5623,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1837667830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837667826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c23203f37098e04f929932129e0f55f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI
+  gameManager: {fileID: 1323893970}
 --- !u!1 &1893093977
 GameObject:
   m_ObjectHideFlags: 0
@@ -6532,6 +6546,10 @@ PrefabInstance:
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 239899158}
+    - target: {fileID: 4008029783879945396, guid: ed5919d78bfb60043a2489b74d3c8877, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5579697773901223697, guid: ed5919d78bfb60043a2489b74d3c8877, type: 3}
       propertyPath: m_Name
       value: Player
