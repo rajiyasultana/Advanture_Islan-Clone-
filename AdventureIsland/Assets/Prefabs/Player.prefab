@@ -142,9 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ec8ce3c89a7ad42bceb7f966a37b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  animator: {fileID: 0}
   cameraTergate: {fileID: 0}
   cameraOffsetX: 3
-  moveSpeed: 6
+  moveSpeed: 8
   leftBoundaryOffset: 1
   jumpForce: 7
   groundCheck: {fileID: 178923982746650963}
@@ -158,6 +159,7 @@ MonoBehaviour:
   throwPoint: {fileID: 1109739989013739942}
   poolSize: 10
   skateboardSpeedMultiplier: 1.6
+  rb: {fileID: 7561237350904052856}
 --- !u!114 &9055489758978347716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +329,7 @@ Transform:
   m_GameObject: {fileID: 9058992148948529782}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19, y: 0.21200004, z: -0.06}
+  m_LocalPosition: {x: 0.29, y: 0.2, z: -0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

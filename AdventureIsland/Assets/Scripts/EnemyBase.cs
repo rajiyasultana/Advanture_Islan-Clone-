@@ -10,6 +10,16 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+            
+            // Fix here: Actually check if player HAS the skateboard!
+            if(playerMovement != null && playerMovement.HasSkateboard)
+            {
+                playerMovement.LoseSkateboard();
+                Die();
+                return;
+            }
+
             PlayerHealthSystem playerHealth = collision.gameObject.GetComponent<PlayerHealthSystem>();
             if(playerHealth != null)
             {
@@ -21,6 +31,7 @@ public class EnemyBase : MonoBehaviour
             Die();
         }
     }
+    
     protected virtual void Die()
     {
         // Add score to player

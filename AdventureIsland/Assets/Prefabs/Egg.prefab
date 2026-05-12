@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f740f67c17b79446b723c67f4b33ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EggBehavior
-  axePrefab: {fileID: 6568056629880216520, guid: 131371494e5c6c14fa14e81d27a7668c, type: 3}
+  scoreValue: 100
+  itemToSpawn: {fileID: 5306920091234308460, guid: 3bff3f626afb5a6489422d08b80a3f40, type: 3}
   throwForceX: 4
   throwForceY: 6
   timeUntilHatch: 0.8

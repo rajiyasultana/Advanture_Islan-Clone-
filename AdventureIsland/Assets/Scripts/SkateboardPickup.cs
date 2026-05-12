@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class SkateboardPickup : MonoBehaviour
 {
+    public bool isCollected = false;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -11,8 +12,11 @@ public class SkateboardPickup : MonoBehaviour
 
             if (player != null)
             {
+                isCollected = true;
                 player.EnableSkateboard(); // Increase player speed
-                Destroy(gameObject);
+                FindObjectOfType<FlyingEnemyManager>().StartFlyingEnemies();
+
+                gameObject.SetActive(false);
             }
         }
     }

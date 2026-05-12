@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private bool canThrow = false;
     public Animator animator;
-    
-    [Header("References")]
-    public Transform cameraTergate; 
-    public float cameraOffsetX = 3.5f; 
+
+    [Header("Camera Tracking")]
+    public CinemachineCamera virtualCamera; // Assign your Virtual Camera in the Inspector
+    private float maxForwardX;
 
     [Header("Movement")]
     public float moveSpeed = 6f;
@@ -53,6 +54,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        // Initialize the max forward position to the player's starting position
+        maxForwardX = transform.position.x;
+        
+        if (virtualCamera != null)
+        {
+            virtualCamera.Follow = this.transform;
+        }
+    }
+
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
@@ -78,6 +90,8 @@ public class PlayerMovement : MonoBehaviour
 
         float newLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, Time.deltaTime * 5f);
         animator.SetLayerWeight(1, newLayerWeight);
+
+        HandleCameraTracking();
     }
 
     void FixedUpdate()
@@ -118,20 +132,28 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = velocity;
     }
 
-    private void LateUpdate()
+    private void HandleCameraTracking()
     {
-        if (cameraTergate != null)
-        {
-            float desiredX = transform.position.x + cameraOffsetX;
+        if (virtualCamera == null) return;
 
-            if (desiredX > cameraTergate.position.x)
+        // If the player moves further right than they've ever been
+        if (transform.position.x >= maxForwardX)
+        {
+            maxForwardX = transform.position.x;
+            
+            // Re-attach the camera if it was detached
+            if (virtualCamera.Follow == null)
             {
-                cameraTergate.position = new Vector3(desiredX, cameraTergate.position.y, transform.position.z);
+                virtualCamera.Follow = this.transform;
             }
-            else
+        }
+        // If the player moves backward (left of their max forward position)
+        else if (transform.position.x < maxForwardX)
+        {
+            // Detach the camera so it stops following
+            if (virtualCamera.Follow == this.transform)
             {
-                // X stays locked!
-                cameraTergate.position = new Vector3(cameraTergate.position.x, cameraTergate.position.y, transform.position.z);
+                virtualCamera.Follow = null;
             }
         }
     }
@@ -145,16 +167,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            //animator.SetBool("IsGrounded", true);
             isJumpPressed = true;
             animator.SetBool("IsJumping", true);
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
-                
             }
-                
-
         }
         else if(context.canceled)
         {
@@ -194,12 +212,21 @@ public class PlayerMovement : MonoBehaviour
     public void EnableSkateboard()
     {
         HasSkateboard = true;
+        if(animator != null)
+        {
+            animator.speed = skateboardSpeedMultiplier;
+        }
         Debug.Log("Skateboard collected! Speed increased.");
     }
 
     public void LoseSkateboard()
     {
         HasSkateboard = false;
+
+        if(animator != null)
+        {
+            animator.speed = 1f; // Reset to normal speed
+        }
         Debug.Log("Lost Skateboard!");
     }
 }

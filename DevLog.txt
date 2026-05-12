@@ -70,13 +70,15 @@ Day 8:
 			idle. run, jump, die
 	axe model
 	snake model
-	
+Day 9:
+	throwing animation
+	try shader in parallax effect(Tried and failed)
+	bird enemy
 	
 next:
+polish the bird enemy effect.
+
 level design
-	
-throwing animation
-	try shader in parallax effect
 bg, collection sound, death sound, fire sound.
 polishing
 code refactor
