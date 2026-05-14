@@ -309,10 +309,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Egg
       objectReference: {fileID: 0}
-    - target: {fileID: 163344038051067473, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7706115316938421624, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.93
@@ -577,10 +573,6 @@ PrefabInstance:
     - target: {fileID: 163344038051067473, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
       propertyPath: m_Name
       value: Egg (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 163344038051067473, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7706115316938421624, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6285,10 +6277,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Egg (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 163344038051067473, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7706115316938421624, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
       propertyPath: m_LocalPosition.x
       value: 248.23
@@ -6329,10 +6317,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8516831700807771985, guid: e55c7475ff4bde240a85ebe9da056a17, type: 3}
-      propertyPath: itemToSpawn
-      value: 
-      objectReference: {fileID: 8897149988055886375, guid: 008fd7666c9f3c74f9ecdcae94b97686, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

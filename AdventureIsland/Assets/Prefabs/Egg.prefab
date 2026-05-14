@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EggBehavior
   scoreValue: 100
-  itemToSpawn: {fileID: 5306920091234308460, guid: 3bff3f626afb5a6489422d08b80a3f40, type: 3}
+  itemToSpawn: {fileID: 8897149988055886375, guid: 008fd7666c9f3c74f9ecdcae94b97686, type: 3}
   throwForceX: 4
   throwForceY: 6
   timeUntilHatch: 0.8
