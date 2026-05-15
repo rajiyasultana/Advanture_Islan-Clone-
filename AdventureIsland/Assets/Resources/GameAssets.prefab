@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2546352620876295390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8812870507801256942}
+  - component: {fileID: 6194018180930684235}
+  m_Layer: 0
+  m_Name: GameAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8812870507801256942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2546352620876295390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6194018180930684235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2546352620876295390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb61f823e191f4fbacb8f8dee06d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameAssets
+  soundAudioClipArray:
+  - soundType: 0
+    audioClip: {fileID: 8300000, guid: 0e57afede4e9d8a4abbf70a4e16496c6, type: 3}
+  - soundType: 1
+    audioClip: {fileID: 8300000, guid: b6238d37c2ae44445aa1acf669b31580, type: 3}
+  - soundType: 2
+    audioClip: {fileID: 8300000, guid: 189decb8874363a4290b07d56500e34c, type: 3}
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: 7c8fc395d2508fe4bbaf8d7e8d7446ef, type: 3}
+  - soundType: 4
+    audioClip: {fileID: 8300000, guid: e2cc004f7a0065c42bd44700158a6449, type: 3}
+  - soundType: 5
+    audioClip: {fileID: 8300000, guid: 6c176b16707edc04181c868332b7dd57, type: 3}
+  - soundType: 6
+    audioClip: {fileID: 8300000, guid: 3795c0b0ebf4da84e8ff994f87e15de6, type: 3}

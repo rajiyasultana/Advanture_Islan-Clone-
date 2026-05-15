@@ -73,7 +73,7 @@ public class FlyingEnemy : EnemyBase
         // 1. Play death animation on the child model
         if (childAnimator != null)
         {
-            childAnimator.SetTrigger("Die");
+            childAnimator.SetTrigger("IsDie");
         }
 
         // 2. Disable collider so it doesn't interact anymore as it falls

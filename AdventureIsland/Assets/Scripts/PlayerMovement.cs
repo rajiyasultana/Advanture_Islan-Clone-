@@ -196,6 +196,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 projectileScript.Fire(throwPoint.position, Vector3.right);
             }
+
+            SoundManager.PlaySound(SoundManager.SoundType.PlayerAttack);
+
         }
         else if(context.performed && !canThrow)
         {

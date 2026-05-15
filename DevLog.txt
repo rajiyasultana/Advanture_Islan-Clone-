@@ -83,6 +83,8 @@ Day 10:
 Day 11: 
 
 SFX
+camera Dead zone
+
 next:
 
 Complete level design

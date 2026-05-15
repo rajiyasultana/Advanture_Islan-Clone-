@@ -210,17 +210,6 @@
                     "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "eb5e7bbf-7d5e-4bef-8eee-7acab09f2549",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
