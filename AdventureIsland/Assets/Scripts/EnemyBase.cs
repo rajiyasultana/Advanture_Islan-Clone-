@@ -46,6 +46,9 @@ public class EnemyBase : MonoBehaviour
         {
             playerScore.AddScore(scoreValue);
         }
+
+        SoundManager.PlaySound(SoundManager.SoundType.enemyDeath);
+
         Destroy(gameObject);
     }
 }

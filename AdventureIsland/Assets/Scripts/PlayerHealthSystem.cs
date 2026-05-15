@@ -20,7 +20,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
     // Buff properties
     public bool HasAngelBuff { get; private set; } = false;
-    private float dieAnimationDuration = 1f;
+    private float dieAnimationDuration = 2f;
     private Coroutine angelCoroutine;
     private PlayerMovement playerMovement;
 
@@ -131,14 +131,19 @@ public class PlayerHealthSystem : MonoBehaviour
 
         playerMovement.animator.SetTrigger("IsDie");
         playerMovement.enabled = false;
-        playerMovement.rb.isKinematic = true; 
+        //playerMovement.rb.isKinematic = true;
+
+        SoundManager.StopBackgroundSound();
+        SoundManager.PlaySound(SoundManager.SoundType.playerDeath);
 
         StartCoroutine(DeathRoutine());
     }
 
     private IEnumerator DeathRoutine()
     {
-        
+        yield return new WaitForSecondsRealtime(dieAnimationDuration);
+
+        Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(delayBeforeGameOver);
         
         // Check the GameManager

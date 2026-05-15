@@ -82,8 +82,9 @@ Day 10:
 
 Day 11: 
 
-SFX
-camera Dead zone
+	SFX(bg, collection sound, death sound, fire sound.)
+	camera Dead zone
+	player fire direction
 
 next:
 
@@ -91,7 +92,7 @@ Complete level design
 polish the bird enemy effect.
 
 
-bg, collection sound, death sound, fire sound.
+
 polishing
 code refactor
 testing

@@ -12,7 +12,7 @@ public class AxePickup : MonoBehaviour
             if (player != null)
             {
                 player.EnableThrowing(); // Grant the player the ability to throw
-                
+                SoundManager.PlaySound(SoundManager.SoundType.eggItemCollect);
                 Destroy(gameObject);
             }
         }

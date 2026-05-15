@@ -34,6 +34,8 @@ public abstract class CollectibleBase : MonoBehaviour
             }
         }
 
+        SoundManager.PlaySound(SoundManager.SoundType.itemCollect);
+
         OnCollected(player);
 
         DestroyCollectible();

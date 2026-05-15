@@ -13,17 +13,12 @@ public class FlyingEnemy : EnemyBase
     private bool isDead = false;
 
 
-    private SkateboardPickup skateboardPickup;
     void Start()
     {
-        // Get physics and collisions from the Parent (this GameObject)
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
-
-        // Get the Animator from the Child model
         childAnimator = GetComponentInChildren<Animator>();
 
-        // Disable gravity while flying
         if (rb != null)
         {
             rb.useGravity = false;
@@ -34,7 +29,6 @@ public class FlyingEnemy : EnemyBase
     {
         if (isDead) return;
 
-        // Fly towards -x
         if (rb != null)
         {
             rb.linearVelocity = new Vector3(-flySpeed, 0f, 0f);

@@ -172,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+                SoundManager.PlaySound(SoundManager.SoundType.jump);
             }
         }
         else if(context.canceled)
@@ -194,7 +195,9 @@ public class PlayerMovement : MonoBehaviour
             Projectile projectileScript = objToSpawn.GetComponent<Projectile>();
             if (projectileScript != null)
             {
-                projectileScript.Fire(throwPoint.position, Vector3.right);
+                float facingDirection = Mathf.Sign(transform.localScale.x);
+                Vector3 throwDirection = new Vector3(facingDirection, 0, 0);
+                projectileScript.Fire(throwPoint.position, throwDirection);
             }
 
             SoundManager.PlaySound(SoundManager.SoundType.PlayerAttack);
