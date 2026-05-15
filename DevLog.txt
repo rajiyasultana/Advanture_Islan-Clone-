@@ -76,12 +76,16 @@ Day 9:
 	bird enemy
 Day 10:
 
-polishing	
-level design
+	polishing	
+	level design
+	problem 1: when scetboard colldect animation stoped(Solved)
 
+Day 11: 
+
+SFX
 next:
 
-problem 1: when scetboard colldect animation stoped
+Complete level design
 polish the bird enemy effect.
 
 
