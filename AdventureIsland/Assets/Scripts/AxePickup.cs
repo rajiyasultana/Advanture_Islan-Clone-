@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class AxePickup : MonoBehaviour
 {
+    [SerializeField] private AudioClip pickupSound;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -12,7 +13,7 @@ public class AxePickup : MonoBehaviour
             if (player != null)
             {
                 player.EnableThrowing(); // Grant the player the ability to throw
-                SoundManager.PlaySound(SoundManager.SoundType.eggItemCollect);
+                AudioManager.Instance.PlaySFX(pickupSound); 
                 Destroy(gameObject);
             }
         }

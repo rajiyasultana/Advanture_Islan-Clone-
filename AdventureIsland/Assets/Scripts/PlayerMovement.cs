@@ -8,9 +8,10 @@ public class PlayerMovement : MonoBehaviour
     private bool canThrow = false;
     public Animator animator;
 
-    //[Header("Camera Tracking")]
-    //public CinemachineCamera virtualCamera; // Assign your Virtual Camera in the Inspector
-    //private float maxForwardX;
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip jump;
+    [SerializeField] private AudioClip attack;
+    
 
     [Header("Movement")]
     public float moveSpeed = 6f;
@@ -56,13 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // Initialize the max forward position to the player's starting position
-        //maxForwardX = transform.position.x;
         
-        //if (virtualCamera != null)
-        //{
-        //    virtualCamera.Follow = this.transform;
-        //}
     }
 
     void Update()
@@ -91,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
         float newLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, Time.deltaTime * 5f);
         animator.SetLayerWeight(1, newLayerWeight);
 
-        //HandleCameraTracking();
     }
 
     void FixedUpdate()
@@ -132,31 +126,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = velocity;
     }
 
-    //private void HandleCameraTracking()
-    //{
-    //    if (virtualCamera == null) return;
-
-    //    // If the player moves further right than they've ever been
-    //    if (transform.position.x >= maxForwardX)
-    //    {
-    //        maxForwardX = transform.position.x;
-            
-    //        // Re-attach the camera if it was detached
-    //        if (virtualCamera.Follow == null)
-    //        {
-    //            virtualCamera.Follow = this.transform;
-    //        }
-    //    }
-    //    // If the player moves backward (left of their max forward position)
-    //    else if (transform.position.x < maxForwardX)
-    //    {
-    //        // Detach the camera so it stops following
-    //        if (virtualCamera.Follow == this.transform)
-    //        {
-    //            virtualCamera.Follow = null;
-    //        }
-    //    }
-    //}
+    
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -172,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
-                SoundManager.PlaySound(SoundManager.SoundType.jump);
+                AudioManager.Instance.PlaySFX(jump);
             }
         }
         else if(context.canceled)
@@ -200,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
                 projectileScript.Fire(throwPoint.position, throwDirection);
             }
 
-            SoundManager.PlaySound(SoundManager.SoundType.PlayerAttack);
+            AudioManager.Instance.PlaySFX(attack);
 
         }
         else if(context.performed && !canThrow)

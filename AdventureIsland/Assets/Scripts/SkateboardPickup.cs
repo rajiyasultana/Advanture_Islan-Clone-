@@ -15,7 +15,7 @@ public class SkateboardPickup : MonoBehaviour
                 isCollected = true;
                 player.EnableSkateboard(); // Increase player speed
                 FindObjectOfType<FlyingEnemyManager>().StartFlyingEnemies();
-                SoundManager.PlaySound(SoundManager.SoundType.eggItemCollect);
+                //SoundManager.PlaySound(SoundManager.SoundType.eggItemCollect);
 
                 gameObject.SetActive(false);
             }

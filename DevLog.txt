@@ -86,6 +86,9 @@ Day 11:
 	camera Dead zone
 	player fire direction
 
+Day 12:
+	remove previous sound system
+	added new sound system.
 next:
 
 Complete level design

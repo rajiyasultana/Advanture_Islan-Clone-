@@ -5,6 +5,9 @@ public abstract class CollectibleBase : MonoBehaviour
 {
     [Header("Base Collectible Settings")]
     public int scoreValue = 100;
+
+    [Header("Audio Clip")]
+    [SerializeField] private AudioClip collectSound;
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -34,7 +37,10 @@ public abstract class CollectibleBase : MonoBehaviour
             }
         }
 
-        SoundManager.PlaySound(SoundManager.SoundType.itemCollect);
+        if (collectSound != null)
+        {
+            AudioManager.Instance.PlaySFX(collectSound);
+        }
 
         OnCollected(player);
 

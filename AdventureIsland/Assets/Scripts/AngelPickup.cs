@@ -15,7 +15,7 @@ public class AngelPickup : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.EnableAngelBuff(invincibilityDuration); // Trigger Invincibility
-                SoundManager.PlaySound(SoundManager.SoundType.eggItemCollect);
+                //SoundManager.PlaySound(SoundManager.SoundType.eggItemCollect);
                 Destroy(gameObject);
             }
         }

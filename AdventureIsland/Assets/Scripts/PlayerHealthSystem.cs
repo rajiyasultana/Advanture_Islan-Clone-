@@ -12,6 +12,9 @@ public class PlayerHealthSystem : MonoBehaviour
     [Header("Death Settings")]
     public float delayBeforeGameOver = 1.5f;
 
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip deathSound;
+
     public System.Action<int, int> OnHealthChanged;
     public System.Action OnPlayerDeath; // Triggers the GameOver UI
 
@@ -131,10 +134,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
         playerMovement.animator.SetTrigger("IsDie");
         playerMovement.enabled = false;
-        //playerMovement.rb.isKinematic = true;
 
-        SoundManager.StopBackgroundSound();
-        SoundManager.PlaySound(SoundManager.SoundType.playerDeath);
+        AudioManager.Instance.PlaySFX(deathSound);
+        AudioManager.Instance.Stop();
 
         StartCoroutine(DeathRoutine());
     }

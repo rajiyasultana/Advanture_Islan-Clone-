@@ -126,4 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthPickup
   scoreValue: 50
+  collectSound: {fileID: 8300000, guid: 7c8fc395d2508fe4bbaf8d7e8d7446ef, type: 3}
   points: 50
