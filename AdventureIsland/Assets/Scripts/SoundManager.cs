@@ -52,6 +52,7 @@ public static class SoundManager
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         audioSource.PlayOneShot(GetAudioClip(soundType));
+        audioSource.volume = 0.5f;
     }
 
     private static AudioClip GetAudioClip(SoundType soundType)
