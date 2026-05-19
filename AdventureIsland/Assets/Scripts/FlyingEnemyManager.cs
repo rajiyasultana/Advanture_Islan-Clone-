@@ -6,13 +6,13 @@ public class FlyingEnemyManager : MonoBehaviour
     public GameObject[] flyingEnemies;
     public float activationDelay = 2f;
 
-    private bool started = false;
+    //private bool started = false;
 
     public void StartFlyingEnemies()
     {
-        if (started) return;
+        //if (started) return;
 
-        started = true;
+        //started = true;
         StartCoroutine(ActivateEnemiesRoutine());
     }
 
@@ -20,9 +20,9 @@ public class FlyingEnemyManager : MonoBehaviour
     {
         foreach (GameObject enemy in flyingEnemies)
         {
+            yield return new WaitForSeconds(activationDelay);
             enemy.SetActive(true);
 
-            yield return new WaitForSeconds(activationDelay);
         }
     }
 }

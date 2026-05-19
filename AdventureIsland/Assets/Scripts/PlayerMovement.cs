@@ -196,10 +196,14 @@ public class PlayerMovement : MonoBehaviour
     public void EnableSkateboard()
     {
         HasSkateboard = true;
+
         if(animator != null)
         {
             animator.speed = skateboardSpeedMultiplier;
         }
+
+        AudioManager.Instance.SetMusicPitch(1.5f);
+
         Debug.Log("Skateboard collected! Speed increased.");
     }
 

@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AngelPickup
   invincibilityDuration: 8
+  pickupSound: {fileID: 8300000, guid: e2cc004f7a0065c42bd44700158a6449, type: 3}
+  angelEffectSound: {fileID: 8300000, guid: 6d1e6705b3b8b3d4f993c34e83f29bd7, type: 3}
 --- !u!136 &1578069018393655769
 CapsuleCollider:
   m_ObjectHideFlags: 0

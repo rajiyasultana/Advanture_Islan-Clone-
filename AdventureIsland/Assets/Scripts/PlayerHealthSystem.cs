@@ -71,9 +71,12 @@ public class PlayerHealthSystem : MonoBehaviour
     private IEnumerator AngelRoutine(float duration)
     {
         HasAngelBuff = true;
+        AudioManager.Instance.Stop();
         Debug.Log("Angel invincibility active!");
+
         yield return new WaitForSeconds(duration);
         HasAngelBuff = false;
+        AudioManager.Instance.PlayBG();
         Debug.Log("Angel invincibility ended.");
     }
 

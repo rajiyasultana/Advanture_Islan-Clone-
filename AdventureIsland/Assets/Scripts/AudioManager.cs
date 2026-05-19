@@ -30,6 +30,8 @@ public class AudioManager : MonoBehaviour
     public void PlayBG()
     {
         musicSource.clip = backgroundMusic;
+        musicSource.volume = 0.5f;
+        musicSource.pitch = 1f;
         musicSource.Play();
 
     }
@@ -40,6 +42,12 @@ public class AudioManager : MonoBehaviour
             return;
         }
         sfxSource.PlayOneShot(clip);
+        sfxSource.volume = 0.5f;
+    }
+
+    public void SetMusicPitch(float pitch)
+    {
+        musicSource.pitch = pitch;
     }
 
     public void Stop()

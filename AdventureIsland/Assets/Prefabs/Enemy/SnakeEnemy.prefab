@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnakeEnemy
   scoreValue: 200
+  EnemydeathSFX: {fileID: 8300000, guid: 6c176b16707edc04181c868332b7dd57, type: 3}
   projectilePrefab: {fileID: 2408361299519283253, guid: 870ff6d6d9595264e89e31e431d2d385, type: 3}
   firePoint: {fileID: 1837027663547108536}
   fireRate: 2

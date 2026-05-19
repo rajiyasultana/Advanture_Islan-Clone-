@@ -74,8 +74,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingEnemy
   scoreValue: 200
+  EnemydeathSFX: {fileID: 8300000, guid: 6c176b16707edc04181c868332b7dd57, type: 3}
   flySpeed: 4
-  deathDestroyDelay: 2
 --- !u!1001 &8331508229075672055
 PrefabInstance:
   m_ObjectHideFlags: 0

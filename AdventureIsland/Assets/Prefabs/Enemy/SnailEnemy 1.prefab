@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnailEnemy
   scoreValue: 100
+  EnemydeathSFX: {fileID: 8300000, guid: 6c176b16707edc04181c868332b7dd57, type: 3}
   moveSpeed: 0.5
 --- !u!1001 &2687302801024843863
 PrefabInstance:

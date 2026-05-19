@@ -4,6 +4,9 @@ using UnityEngine;
 public class SkateboardPickup : MonoBehaviour
 {
     public bool isCollected = false;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip pickupSound;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -15,7 +18,7 @@ public class SkateboardPickup : MonoBehaviour
                 isCollected = true;
                 player.EnableSkateboard(); // Increase player speed
                 FindObjectOfType<FlyingEnemyManager>().StartFlyingEnemies();
-                //SoundManager.PlaySound(SoundManager.SoundType.eggItemCollect);
+                AudioManager.Instance.PlaySFX(pickupSound);
 
                 gameObject.SetActive(false);
             }

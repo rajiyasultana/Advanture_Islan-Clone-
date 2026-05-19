@@ -126,6 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa13107c139b9b642833d2c75149ee8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkateboardPickup
+  isCollected: 0
+  pickupSound: {fileID: 8300000, guid: e2cc004f7a0065c42bd44700158a6449, type: 3}
+  skateboardEffectSound: {fileID: 8300000, guid: d826b2a8b95c5e14993d3822774cd6a6, type: 3}
 --- !u!1001 &7271159803309361316
 PrefabInstance:
   m_ObjectHideFlags: 0

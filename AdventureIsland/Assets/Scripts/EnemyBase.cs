@@ -5,6 +5,10 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Base Enemy Settings")]
     public int scoreValue = 200;
+    public AudioClip EnemydeathSFX;
+
+    protected bool isDead = false;
+
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
@@ -40,6 +44,8 @@ public class EnemyBase : MonoBehaviour
     
     protected virtual void Die()
     {
+        if (isDead) return;
+        isDead = true;
         // Add score to player
         ScoreSystem playerScore = FindObjectOfType<ScoreSystem>();
         if (playerScore != null)
@@ -47,8 +53,10 @@ public class EnemyBase : MonoBehaviour
             playerScore.AddScore(scoreValue);
         }
 
-        //SoundManager.PlaySound(SoundManager.SoundType.enemyDeath);
+        AudioManager.Instance.PlaySFX(EnemydeathSFX);
 
         Destroy(gameObject);
     }
+
+
 }
