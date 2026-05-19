@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     public int maxChances = 3;
 
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip gameOverSound;
 
     public int currentChances;
     public static bool isInitialized = false;
@@ -36,20 +38,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //private void OnEnable()
-    //{
-    //    SceneManager.sceneLoaded += OnSceneLoaded;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    SceneManager.sceneLoaded -= OnSceneLoaded;
-    //}
-
-    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    //SoundManager.PlayBackgroundSound(forceRestart: true);
-    //}
+    
 
     private void Start()
     {
@@ -71,6 +60,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance.PlaySFX(gameOverSound);
+            AudioManager.Instance.Stop();
             Debug.Log("GAME OVER! No chances remaining.");
         }
     }
@@ -81,6 +72,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        AudioManager.Instance.PlayBG();
     }
 
     public void ResetGame()
@@ -89,5 +82,7 @@ public class GameManager : MonoBehaviour
         isInitialized = true;
         Time.timeScale = 1f; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        AudioManager.Instance.PlayBG();
     }
 }

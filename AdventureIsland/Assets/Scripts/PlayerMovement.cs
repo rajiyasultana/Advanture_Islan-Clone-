@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canThrow = false;
     public Animator animator;
 
+     
+
     [Header("Audio Clips")]
     [SerializeField] private AudioClip jump;
     [SerializeField] private AudioClip attack;
@@ -55,10 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
+    
 
     void Update()
     {
@@ -69,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("Speed", Mathf.Abs(moveInput));
         
+        
+
         if (moveInput != 0)
         {
             transform.localScale = new Vector3(moveInput > 0 ? 1 : -1, 1, 1);
@@ -128,13 +129,18 @@ public class PlayerMovement : MonoBehaviour
 
     
 
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!enabled) return;
         moveInput = context.ReadValue<Vector2>().x;
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (!enabled) return;
+        
         if (context.performed)
         {
             isJumpPressed = true;
@@ -154,6 +160,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
+        if (!enabled) return;
+        
         if (context.performed && canThrow)
         {
             if (projectilePrefab == null || throwPoint == null) return;

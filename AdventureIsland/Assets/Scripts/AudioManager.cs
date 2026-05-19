@@ -22,10 +22,17 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
-        musicSource.clip = backgroundMusic;
-        musicSource.Play();
+        
+        PlayBG();
+        
     }
 
+    public void PlayBG()
+    {
+        musicSource.clip = backgroundMusic;
+        musicSource.Play();
+
+    }
     public void PlaySFX(AudioClip clip)
     {
         if(clip == null)

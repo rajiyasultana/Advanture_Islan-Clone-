@@ -11,6 +11,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
     [Header("Death Settings")]
     public float delayBeforeGameOver = 1.5f;
+    public float fallLimit = -2f;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip deathSound;
@@ -33,8 +34,14 @@ public class PlayerHealthSystem : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
     }
 
+
     private void Update()
     {
+        
+        if(!isDead && transform.position.y <= fallLimit)
+        {
+            InstantDeath();
+        }
         HandleHealthDrain();
     }
 
@@ -134,6 +141,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
         playerMovement.animator.SetTrigger("IsDie");
         playerMovement.enabled = false;
+
 
         AudioManager.Instance.PlaySFX(deathSound);
         AudioManager.Instance.Stop();
