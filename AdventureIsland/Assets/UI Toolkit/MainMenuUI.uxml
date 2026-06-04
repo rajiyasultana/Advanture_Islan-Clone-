@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenuUIStyle.uss?fileID=7433441132597879392&amp;guid=f430315c848f6844c84c77ff921e1e89&amp;type=3#MainMenuUIStyle"/>
+    <ui:VisualElement name="root">
+        <ui:Label name="GameTitle" text="ADVENTURE ISLAND"/>
+        <ui:Label name="PressStart" text="PRESS START"/>
+    </ui:VisualElement>
+</ui:UXML>
