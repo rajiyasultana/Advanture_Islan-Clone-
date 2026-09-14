@@ -1,0 +1,25 @@
+#root
+{
+    flex-grow: 1;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: black;
+}
+
+#GameTitle
+{
+    font-size: 70px;
+    color: white;
+
+    unity-font-style: bold;
+
+    margin-bottom: 60px;
+}
+
+#PressStart
+{
+    font-size: 30px;
+    color: yellow;
+}
