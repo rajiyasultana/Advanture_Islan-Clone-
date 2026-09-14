@@ -18,3 +18,36 @@
 .health-bar.empty {
     opacity: 0;
 }
+
+.settings-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    height: 42px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    background-color: rgb(46, 50, 60);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-left-color: rgb(85, 90, 105);
+    border-right-color: rgb(85, 90, 105);
+    border-top-color: rgb(85, 90, 105);
+    border-bottom-color: rgb(85, 90, 105);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.settings-btn:hover {
+    background-color: rgb(62, 68, 82);
+    border-left-color: rgb(115, 122, 142);
+    border-right-color: rgb(115, 122, 142);
+    border-top-color: rgb(115, 122, 142);
+    border-bottom-color: rgb(115, 122, 142);
+}

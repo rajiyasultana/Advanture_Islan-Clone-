@@ -1,0 +1,20 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/VideoDisplaySettings.uss?fileID=7433441132597879392&amp;guid=2a9b74d5e989fca4ba1f437a8b01dce9&amp;type=3#VideoDisplaySettings"/>
+    <ui:VisualElement name="DisplaySettingsBackdrop" class="settings-backdrop" style="display: none;">
+        <ui:VisualElement name="DisplaySettingsWindow" class="settings-window">
+            <ui:Label text="DISPLAY SETTINGS" name="TitleLabel" class="settings-header"/>
+            <ui:Label text="Configure resolution and monitor display options" name="SubtitleLabel" class="settings-sub-header"/>
+            <ui:VisualElement name="SettingsContent" class="settings-content">
+                <ui:DropdownField label="Resolution" name="ResolutionDropdown" tooltip="Set the game screen resolution" class="settings-row"/>
+                <ui:DropdownField label="Display Mode" name="DisplayModeDropdown" tooltip="Choose Fullscreen, Windowed, or Borderless" class="settings-row"/>
+                <ui:DropdownField label="V-Sync" name="VSyncDropdown" tooltip="Synchronize frame rate with monitor refresh rate" class="settings-row"/>
+                <ui:Slider label="Brightness" name="BrightnessSlider" low-value="-2" high-value="2" value="0" tooltip="Adjust game exposure brightness" class="settings-row"/>
+                <ui:Slider label="Render Scale" name="RenderScaleSlider" low-value="0.5" high-value="1.5" value="1.0" tooltip="Internal 3D rendering resolution scale" class="settings-row"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="ButtonContainer" class="settings-buttons-container">
+                <ui:Button text="Close" name="CloseButton" class="settings-button btn-secondary"/>
+                <ui:Button text="Apply" name="ApplyButton" class="settings-button btn-primary"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using Unity.Cinemachine;
@@ -160,8 +160,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (!enabled) return;
+        if (!enabled || Time.timeScale == 0f) return;
         
+        // Prevent throwing when clicking UI elements
+        if (IsPointerOverUI()) return;
+
         if (context.performed && canThrow)
         {
             if (projectilePrefab == null || throwPoint == null) return;
@@ -185,6 +188,51 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("need to collect egg first!!!");
         }
+    }
+
+    private bool IsPointerOverUI()
+    {
+        if (UnityEngine.EventSystems.EventSystem.current != null && 
+            UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        Vector2 mousePos = Vector2.zero;
+        if (UnityEngine.InputSystem.Mouse.current != null)
+        {
+            mousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+        }
+        else
+        {
+            mousePos = Input.mousePosition;
+        }
+
+        Vector2 panelPos = new Vector2(mousePos.x, Screen.height - mousePos.y);
+        var uiDocs = UnityEngine.Object.FindObjectsByType<UnityEngine.UIElements.UIDocument>(FindObjectsSortMode.None);
+        foreach (var doc in uiDocs)
+        {
+            if (doc != null && doc.rootVisualElement != null && doc.rootVisualElement.style.display != UnityEngine.UIElements.DisplayStyle.None)
+            {
+                var picked = doc.rootVisualElement.panel?.Pick(panelPos);
+                if (picked != null && picked != doc.rootVisualElement)
+                {
+                    if (picked is UnityEngine.UIElements.Button ||
+                        picked.GetFirstAncestorOfType<UnityEngine.UIElements.Button>() != null ||
+                        picked.name == "settingsButton" ||
+                        picked.ClassListContains("settings-btn") ||
+                        picked.ClassListContains("settings-window") ||
+                        picked.ClassListContains("settings-backdrop") ||
+                        picked.GetFirstAncestorOfType<UnityEngine.UIElements.Slider>() != null ||
+                        picked.GetFirstAncestorOfType<UnityEngine.UIElements.DropdownField>() != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public void EnableThrowing()

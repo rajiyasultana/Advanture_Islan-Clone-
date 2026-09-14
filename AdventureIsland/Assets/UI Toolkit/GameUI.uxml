@@ -1,5 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/GameUIStyle.uss?fileID=7433441132597879392&amp;guid=a48beba880fba5e44b96b926d5a05aad&amp;type=3#GameUIStyle"/>
+    <ui:Template name="VideoDisplaySettings" src="project://database/Assets/UI%20Toolkit/VideoDisplaySettings.uxml?fileID=9197481963319205126&amp;guid=b30211fc779621d41828bf21824365d7&amp;type=3#VideoDisplaySettings"/>
     <ui:VisualElement name="root" class="hud" style="height: 889px; flex-grow: 1;">
         <ui:VisualElement name="GameUI" style="flex-grow: 1;">
             <ui:VisualElement name="ScoreCounter" class="left-section score-text" style="height: 50px; width: 1417px; display: flex;">
@@ -24,6 +25,7 @@
                     <ui:VisualElement name="health-bar" class="health-bar" style="background-image: none;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:Button text="Settings" name="settingsButton" class="settings-btn" />
         </ui:VisualElement>
         <ui:VisualElement name="GameOverPanel" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(84, 84, 84, 0.74); overflow: visible; position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: none;">
             <ui:Label text="Game Over" selectable="false" focusable="false" style="-unity-font-style: bold; font-size: 40px; -unity-text-align: upper-center; color: rgb(255, 255, 255); letter-spacing: 20px; margin-bottom: 20px;"/>
@@ -33,5 +35,6 @@
             <ui:Label text="000000" name="TransitionScore" style="font-size: 40px; -unity-font-style: bold; -unity-text-align: upper-center;"/>
             <ui:Label text="3" name="TransitionLife" style="font-size: 40px; -unity-font-style: bold; -unity-text-align: upper-center;"/>
         </ui:VisualElement>
+        <ui:Instance template="VideoDisplaySettings" name="SettingsPanel" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: none;" />
     </ui:VisualElement>
 </ui:UXML>

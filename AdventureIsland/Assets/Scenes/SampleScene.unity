@@ -851,6 +851,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6931652436293557547, guid: 8de23599c3465174fa22d46e5b4fb5bf, type: 3}
   m_PrefabInstance: {fileID: 160487807}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &161831487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 161831488}
+  - component: {fileID: 161831491}
+  - component: {fileID: 161831490}
+  - component: {fileID: 161831489}
+  m_Layer: 0
+  m_Name: VideoSettingsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &161831488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161831487}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &161831489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161831487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca445e5c3b8841c4bb84e8d45feb796f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.studio23.ss2.settings.video::Studio23.SS2.Settings.Video.Core.GraphicsController
+--- !u!114 &161831490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161831487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199bd1b6a54027041844694ed3c34f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.studio23.ss2.settings.video::Studio23.SS2.Settings.Video.Core.DisplayController
+--- !u!114 &161831491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161831487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f22ac7a7ba753644b51f30a5e245699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.studio23.ss2.settings.video::Studio23.SS2.Settings.Video.Core.VideoSettingsManager
+  DisplayController: {fileID: 161831490}
+  GraphicsController: {fileID: 161831489}
+  _globalVolume: {fileID: 832575518}
+  _postProcessConfiguration: {fileID: 11400000, guid: 3b9fdbdafcb438f4788c656a5ec61501, type: 2}
+  _defaultPostProcessConfiguration: {fileID: 11400000, guid: 3b9fdbdafcb438f4788c656a5ec61501, type: 2}
 --- !u!1 &204729814
 GameObject:
   m_ObjectHideFlags: 0
@@ -3257,7 +3332,7 @@ GameObject:
   - component: {fileID: 832575518}
   m_Layer: 0
   m_Name: Global Volume
-  m_TagString: Untagged
+  m_TagString: GlobalVolume
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3424,6 +3499,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 796e9961d5eb2c84c999aab2a4e621fe, type: 3}
+--- !u!1 &839214067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 839214069}
+  - component: {fileID: 839214068}
+  - component: {fileID: 839214070}
+  m_Layer: 5
+  m_Name: SettingsUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &839214068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839214067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: d06debe155985124bbbc0fe1ffd750ca, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: b30211fc779621d41828bf21824365d7, type: 3}
+  m_SortingOrder: 100
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!4 &839214069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839214067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &839214070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839214067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12e92a6b8c75e142ac26e5602a4e819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VideoDisplaySettingsUI
+  _displayController: {fileID: 161831490}
 --- !u!1001 &861026001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6562,7 +6706,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: d06debe155985124bbbc0fe1ffd750ca, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 2e44a2ca9be21634db3a3e10ddd20e4a, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
@@ -6598,6 +6742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI
   gameManager: {fileID: 1323893970}
+  videoDisplaySettingsUI: {fileID: 0}
 --- !u!1001 &1876497310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7908,3 +8053,5 @@ SceneRoots:
   - {fileID: 1323893969}
   - {fileID: 522224437}
   - {fileID: 41516083}
+  - {fileID: 161831488}
+  - {fileID: 839214069}
