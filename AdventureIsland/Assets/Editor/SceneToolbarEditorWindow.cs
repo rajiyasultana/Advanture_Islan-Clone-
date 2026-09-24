@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Overlays;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements; // Required for modern ObjectField
 using System.Collections.Generic;
 
 [Overlay(typeof(SceneView), "Prefab Palette Tools", true)]
@@ -14,44 +15,73 @@ public class SceneToolbarEditorWindow : Overlay
     private VisualElement container;
     private ScrollView scrollView;
 
+    // Keeps track of elements whose previews are still loading from disk
+    private Dictionary<Image, GameObject> pendingPreviews = new Dictionary<Image, GameObject>();
+
     public override void OnCreated()
     {
         base.OnCreated();
         LoadPrefabs();
+        
+        // Listen to global editor updates to catch asset previews once they finish caching
+        EditorApplication.update += MonitorPendingPreviews;
+    }
+
+    // Always clean up event delegates when the overlay is destroyed to avoid memory leaks
+    public override void OnWillBeDestroyed()
+    {
+        base.OnWillBeDestroyed();
+        EditorApplication.update -= MonitorPendingPreviews;
     }
 
     // Creates the modern VisualElement UI layout
     public override VisualElement CreatePanelContent()
     {
         VisualElement root = new VisualElement();
-
         root.style.flexGrow = 1;
-        // 1. Add Prefab Object Field
-        IMGUIContainer objectFieldContainer = new IMGUIContainer(() =>
+
+        // FIX 1: Modern Native ObjectField completely replaces the glitchy IMGUI version
+        ObjectField objectField = new ObjectField("")
         {
-            GameObject newPrefab = (GameObject)EditorGUILayout.ObjectField("", null, typeof(GameObject), false, GUILayout.Width(120));
-            if (newPrefab != null && !overlayPrefabs.Contains(newPrefab))
+            objectType = typeof(GameObject),
+            allowSceneObjects = false
+        };
+        objectField.style.width = 120;
+        objectField.style.marginBottom = 5;
+
+        // Registers a modern change-callback tracking completion state safely
+        objectField.RegisterValueChangedCallback(evt =>
+        {
+            GameObject newPrefab = evt.newValue as GameObject;
+            if (newPrefab != null)
             {
-                overlayPrefabs.Add(newPrefab);
-                SavePrefabs();
-                RefreshPalette(); // Rebuild the wrapped grid when items are added
+                if (!overlayPrefabs.Contains(newPrefab))
+                {
+                    overlayPrefabs.Add(newPrefab);
+                    SavePrefabs();
+                    RefreshPalette();
+                }
+                // Instantly clear the picker slot so it's fresh for the next input
+                objectField.SetValueWithoutNotify(null);
             }
         });
-        root.Add(objectFieldContainer);
+        root.Add(objectField);
 
+        // Grid Container Scrolling Constraints Setup
         scrollView = new ScrollView(ScrollViewMode.Vertical);
         scrollView.style.flexGrow = 1;
         scrollView.style.marginTop = 5;
         
+        // Force structural wrapping constraints directly onto the viewport content container
+        scrollView.contentContainer.style.flexDirection = FlexDirection.Row;
+        scrollView.contentContainer.style.flexWrap = Wrap.Wrap;
+        scrollView.contentContainer.style.width = new StyleLength(StyleKeyword.Auto);
         
-        // 2. Setup the Grid Container with pure Flexbox Wrapping
         container = new VisualElement();
         container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap; // This provides dynamic wrapping on resize!
-        container.style.marginTop = 5;
-        container.style.width = new Length(100, LengthUnit.Percent);
+        container.style.flexWrap = Wrap.Wrap; 
+        container.style.flexGrow = 1;
 
-        
         scrollView.Add(container);
         root.Add(scrollView);
 
@@ -65,6 +95,7 @@ public class SceneToolbarEditorWindow : Overlay
     {
         if (container == null) return;
         container.Clear();
+        pendingPreviews.Clear();
 
         if (overlayPrefabs.Count == 0)
         {
@@ -84,7 +115,7 @@ public class SceneToolbarEditorWindow : Overlay
 
             int index = i; // Cache index for closure scopes
 
-            // 3. Create Button Element
+            // Create Button Element
             VisualElement btn = new VisualElement();
             btn.style.width = iconSize;
             btn.style.height = iconSize;
@@ -100,10 +131,20 @@ public class SceneToolbarEditorWindow : Overlay
             btn.style.borderLeftWidth = 1; btn.style.borderRightWidth = 1;
             btn.style.borderTopColor = btn.style.borderBottomColor = btn.style.borderLeftColor = btn.style.borderRightColor = new Color(0.15f, 0.15f, 0.15f);
 
-            // 4. Generate & Display Asset Preview
+            // Generate & Display Asset Preview
             Image img = new Image();
             Texture2D preview = AssetPreview.GetAssetPreview(prefab);
-            if (preview == null) preview = EditorGUIUtility.IconContent("d_GameObject Icon").image as Texture2D;
+            
+            if (preview == null)
+            {
+                // FIX 2: If preview isn't ready post-playmode, show a fallback and queue it up for update monitoring
+                preview = EditorGUIUtility.IconContent("d_GameObject Icon").image as Texture2D;
+                if (!pendingPreviews.ContainsKey(img))
+                {
+                    pendingPreviews.Add(img, prefab);
+                }
+            }
+            
             img.image = preview;
             img.scaleMode = ScaleMode.ScaleToFit;
             img.style.paddingLeft = img.style.paddingRight = img.style.paddingTop = img.style.paddingBottom = 4;
@@ -111,7 +152,7 @@ public class SceneToolbarEditorWindow : Overlay
             img.style.height = new Length(100, LengthUnit.Percent);
             btn.Add(img);
 
-            // 5. Native Right-Click Context Menu handling
+            // Native Right-Click Context Menu handling
             btn.RegisterCallback<PointerDownEvent>(evt =>
             {
                 if (evt.button == 1) // Right Click
@@ -128,7 +169,7 @@ public class SceneToolbarEditorWindow : Overlay
                 }
             });
 
-            // 6. Handle Native Drag & Drop out of UI Toolkit
+            // Handle Native Drag & Drop out of UI Toolkit
             btn.RegisterCallback<PointerMoveEvent>(evt =>
             {
                 if (evt.pressedButtons == 1) // Left click dragging
@@ -142,6 +183,33 @@ public class SceneToolbarEditorWindow : Overlay
             });
 
             container.Add(btn);
+        }
+    }
+
+    // FIX 2 Engine Loop: Constantly watches for asset icons generated on domain changes
+    private void MonitorPendingPreviews()
+    {
+        if (pendingPreviews.Count == 0) return;
+
+        List<Image> completedImages = new List<Image>();
+
+        foreach (var kvp in pendingPreviews)
+        {
+            if (kvp.Value == null || kvp.Key == null) continue;
+
+            // Try loading asset preview again
+            Texture2D readyPreview = AssetPreview.GetAssetPreview(kvp.Value);
+            if (readyPreview != null)
+            {
+                kvp.Key.image = readyPreview;
+                completedImages.Add(kvp.Key);
+            }
+        }
+
+        // Clean evaluated images out of queue
+        foreach (var img in completedImages)
+        {
+            pendingPreviews.Remove(img);
         }
     }
 
