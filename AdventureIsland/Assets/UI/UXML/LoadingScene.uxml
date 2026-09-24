@@ -1,0 +1,15 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/2D%20Adventure%20Background%20Pack/Backgrounds/IceAge/middle_ground.png?fileID=2800000&amp;guid=9b8e709e716a1ed4da1cf5eebeef263f&amp;type=3#middle_ground&quot;); flex-direction: column-reverse;">
+            <ui:Label text="Level 1" style="-unity-text-align: middle-center; height: 100px; background-image: none; font-size: 50px; -unity-font-style: bold; white-space: pre-wrap;"/>
+            <ui:VisualElement name="background" />
+            <ui:Label name="hint-header" />
+            <ui:Label name="hint-description" />
+            <ui:Label name="press-any-key" />
+            <ui:VisualElement name="loading-progress" />
+            <ui:VisualElement name="progress-background">
+                <ui:VisualElement name="loading-progress" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6719b9a8c939c4b9c21d8f5ee59f72, type: 3}
+  m_Name: Level1SceneLoading
+  m_EditorClassIdentifier: com.studio23.ss2.sceneloadingsystem::Studio23.SS2.SceneLoadingSystem.Data.SceneLoadingOperation
+  SceneData:
+  - SceneData: {fileID: 11400000, guid: 7bacdba299cd43c43849cd4841bdfc06, type: 2}
+    IsLoadAsSingle: 0
+    ActivateOnLoad: 0
+  PrefabGameObject: {fileID: 6912779592989189976, guid: 094235c04d601004ea8767c7b3bbffec, type: 3}

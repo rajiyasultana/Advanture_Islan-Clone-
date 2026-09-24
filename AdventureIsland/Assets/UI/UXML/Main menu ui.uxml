@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/USS/MainMenu.uss?fileID=7433441132597879392&amp;guid=6d7111bf82d34f649af8a5f9eb54e3e0&amp;type=3#MainMenu"/>
+    <ui:VisualElement name="main-menu" class="main-menu">
+        <ui:Label name="title-label" text="Adventure Island" class="title"/>
+        <ui:VisualElement name="menu-buttons" class="menu-buttons">
+            <ui:Button name="play-button" text="PLAY" class="menu-button"/>
+            <ui:Button name="settings-button" text="SETTINGS" class="menu-button"/>
+            <ui:Button name="quit-button" text="QUIT" class="menu-button"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

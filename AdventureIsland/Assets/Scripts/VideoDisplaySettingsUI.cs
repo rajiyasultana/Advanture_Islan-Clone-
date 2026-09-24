@@ -22,7 +22,8 @@ public class VideoDisplaySettingsUI : MonoBehaviour
 
     private void Awake()
     {
-        InitializeElements();
+        
+        _uiDocument = GetComponent<UIDocument>();
     }
 
     private void Start()
@@ -38,7 +39,6 @@ public class VideoDisplaySettingsUI : MonoBehaviour
 
     private void InitializeElements()
     {
-        _uiDocument = GetComponent<UIDocument>();
         if (_uiDocument == null) return;
 
         var root = _uiDocument.rootVisualElement;

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.studio23.ss2.loadingsystem": "1.1.3",
     "com.studio23.ss2.settings.video.urp": "1.0.3",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.14",
@@ -56,6 +57,14 @@
       "scopes": [
         "com.studio23.ss2.settings.video",
         "com.studio23.ss2.settings.video.urp"
+      ]
+    },
+    {
+      "name": "SceneLoadingSystem",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.cysharp.unitask",
+        "com.studio23.ss2.loadingsystem"
       ]
     }
   ]
